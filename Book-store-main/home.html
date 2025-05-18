@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" type="image/png" href="../assets/image/vHu9xligIEg-Photoroom.png">
+    <link rel="stylesheet" href="home.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="loader">
+        <img src="./assets/image/infinite-spinner.svg" alt="">
+    </div>
+    <nav>
+        <div class="left-nav">
+            <a href="home.html"><img src="assets/image/vHu9xligIEg-Photoroom.png" alt=""></a>
+        </div>
+        <input type="checkbox" id="menu">
+        <label for="menu" class="ham">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="right-nav">
+            <a href="home.html">О нас</a>
+            <a href="bookpage/index.html">Комиксы и манга</a>
+            <a href="contactpage/contact.html">Контакты</a>
+            <a href="loginform/loginform/index.html">Профиль</a>
+            <a href="./profile/profile.html" class="profile-btn">
+                <i class="bi bi-person-circle"></i>
+            </a>
+            <button id="darkModeToggle" class="dark-mode-btn">
+                <i id="darkModeIcon" class="bi bi-brightness-high"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <header data-aos="fade-up">
+        <div data-aos="fade-up">
+            <h1 data-aos="fade-down">Geeky's - Место где каждый может быть суппер героем</h1>
+            <p data-aos="fade-up">Место где мы любим комиксы</p>
+            <div>
+                <a class="get-started" href="bookpage/index.html" data-aos="fade-right">Каталог <i class="fa-solid fa-square-arrow-up-right"></i></a>
+                <a class="learn-more" href="#" data-aos="fade-left">Больше о нас</a>
+            </div>
+        </div>
+    </header>
+    
+    <section data-aos="fade-up" id="about">
+        <div data-aos="fade-up" class="about-container">
+            <div data-aos="fade-up" class="about-content">
+                <h2>Про нас</h2>
+                <p>Магазин комиксов Geeky's был открыт в 2015 году Андреем Спортом. И с того времени он стал самым крупным магазином в Твери и Тверской области. К 2025 году Geeky's уже больше чем магазин. Это место которое притягивает гиков с всей страны. Это место где ваши увлечения ценят, любят и поддерживают</p>
+            </div>
+            <div data-aos="fade-up" class="about-overview">
+                <div class="about-overview-img">
+                    <img src="assets/image/LoGoGeekys.png" alt="Cozy reading corner">
+                </div>
+                <div data-aos="fade-up" class="about-overview-content">
+                    <h1>Стань частью гик культуры</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section data-aos="fade-up" id="new-arrival">
+        <div data-aos="fade-up" class="new-arrival-header">
+            <div data-aos="fade-up">
+                <h2>Новинки</h2>
+                <p>новики в нашем магазине</p>
+            </div>
+            <div data-aos="fade-up">
+                <a href="#" id="prev-btn"><i class="fa-solid fa-arrow-left"></i></a>
+                <a href="#" id="next-btn"><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        <div data-aos="fade-up" class="new-collection" id="new-collection">
+            <!-- Карточки будут добавлены динамически -->
+        </div>
+    </section>
+    
+    <section class="collection" data-aos="fade-up">
+        <h2 class="collection-title">Вселенные представленные у нас</h2>
+        <div class="categories">
+            <div class="category" data-aos="zoom-in">📖 Marvel</div>
+            <div class="category" data-aos="zoom-in">📚 DC</div>
+            <div class="category" data-aos="zoom-in">🎓 Bubble</div>
+            <div class="category" data-aos="zoom-in">👧 Звёздные войны</div>
+            <div class="category" data-aos="zoom-in">🖊️ Пацаны</div>
+            <div class="category" data-aos="zoom-in">📖 Фёдор Нечитайло и Студия "Феникс"</div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact-section">
+        <div class="contact-info">
+            <h3>Контакты</h3>
+            <ul>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <span>Phone:</span>
+                    <p>+7 800 555 35 35</p>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <span>Email:</span>
+                    <p><a href="mailto:Geeky'sMail@mail.com">Geeky'sMail@mail.com</a></p>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Address:</span>
+                    <p>Тверь, улица Трёхсвятская, 24</p>
+                </li>
+            </ul>
+        </div>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2181.4451401454794!2d35.907825376951735!3d56.85546082351223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b686feaf6776eb%3A0x54f243f99162babe!2sGeeky's!5e0!3m2!1sru!2sru!4v1745095961229!5m2!1sru!2sru"
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social">
+            <h3>Наши соц-сети</h3>
+            <a href=""><i class="bi bi-telegram"></i></a>
+            <a href=""><i class="bi bi-Instagram"></i></a>
+            <a href=""><i class="bi bi-envelope"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-twitter"></i></a>
+        </div>
+        <div class="text_foot">
+            <ul>
+                <li><a href="privacy-notice.html">политика конфиденциальности</a></li>
+                <li><a href="terms-of-use.html">Условия использования</a></li>
+                <li><a href="accessibility.html">Доступность</a></li>
+                <li><a href="cookie-preferences.html">Cookie</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <span>©2025, Все права защищены. Для диплома ВШП Тверь</span>
+        </div>
+    </footer>
+    <button id="scrollToTopBtn" title="Scroll to Top">⇧</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>

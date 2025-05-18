@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "title": "БРАТ: 25 лет Книга комиксов",
+        "author": "Bubble Comics Team",
+        "publisher": "Bubble Comics",
+        "description": "Юбилейное издание, посвящённое 25-летию Bubble Comics, включает ключевые моменты истории издательства.",
+        "genres": ["Comics", "Юбилейное издание"],
+        "image_url": "../bookpage/bookimages/ne-brat-ti-mne.png",
+        "price": 800
+    },
+    {
+        "id": 2,
+        "title": "Локи в Президенты",
+        "author": "Хастич Фосс, Маккфорни Уэлфри, Чакир",
+        "publisher": "Marvel",
+        "description": "Локи, бог хитрости, баллотируется в президенты — сатирический взгляд на политику Marvel.",
+        "genres": ["Comics", "фантастика", "Сатира"],
+        "image_url": "../bookpage/bookimages/meik-marvel-greit-agen.png",
+        "price": 500
+    },
+    {
+        "id": 3,
+        "title": "Ловели Бабочек",
+        "author": "Анастасия Ким",
+        "publisher": "Bubble Comics",
+        "description": "История о ловце бабочек в мире фантазий и тайн.",
+        "genres": ["Comics", "фантастика", "Приключение"],
+        "image_url": "../bookpage/../bookpage/bookimages/bug-hunter.png",
+        "price": 400
+    },
+    {
+        "id": 4,
+        "title": " Gotham Тихо!",
+        "author": "Джеф Лоуб, Джим Ли, Скотт Уильямс",
+        "publisher": "DC Comics",
+        "description": "Бэтмен сталкивается с новыми угрозами в мрачном Готэме.",
+        "genres": ["Comics", "Супергерой", "детектив"],
+        "image_url": "../bookpage/../bookpage/bookimages/beatmen-sailens.png",
+        "price": 600
+    },
+    {
+        "id": 5,
+        "title": "Майор Гром: Чумной Доктор",
+        "author": "Bubble Comics Team",
+        "publisher": "Bubble Comics",
+        "description": "Майор Гром противостоит Чумному Доктору в напряжённом триллере.",
+        "genres": ["Comics", "Экшен", "Триллер"],
+        "image_url": "../bookpage/../bookpage/bookimages/maior-Grom.png",
+        "price": 450
+    },
+    {
+        "id": 6,
+        "title": "Хранители",
+        "author": "Аллан Мур",
+        "publisher": "DC Comics",
+        "description": "История Дэйн Пибонс, одного из лучших романов XX века.",
+        "genres": ["Comics", "Супергерой", "Приключение"],
+        "image_url": "../bookpage/../bookpage/bookimages/hraniteli.png",
+        "price": 550
+    },
+    {
+        "id": 7,
+        "title": "Бэтмен: Убийственная Шутка",
+        "author": "Адам Мур, Брайан Болланд",
+        "publisher": "DC Comics",
+        "description": "Культовый комикс о противостоянии Бэтмена и Джокера.",
+        "genres": ["Comics", "Супергерой", "Триллер"],
+        "image_url": "../bookpage/../bookpage/bookimages/killing-joyk.png",
+        "price": 700
+    },
+    {
+        "id": 8,
+        "title": "Заичник",
+        "author": "Дмитрий Мордас",
+        "publisher": "Komikc",
+        "description": "Таинственная история о человеке с маской зайца в мрачном лесу.",
+        "genres": ["Comics", "Триллер", "детектив"],
+        "image_url": "../bookpage/bookimages/bunny.png",
+        "price": 400
+    },
+    {
+        "id": 9,
+        "title": "Лунный Рыцарь",
+        "author": "Брайан Майкл Бендис, Алекс Малеев",
+        "publisher": "Marvel",
+        "description": "Лунный Рыцарь сражается с врагами, балансируя на грани безумия.",
+        "genres": ["Comics", "Супергерой", "Экшен"],
+        "image_url": "../bookpage/bookimages/moon-night.png",
+        "price": 600
+    },
+    {
+        "id": 10,
+        "title": "Джон Константин Hellblazer",
+        "author": "Гарт Эннис, Уилл Симпсон, Джейми Делано, Стив Диллон",
+        "publisher": "DC Comics Black Label",
+        "description": "Джон Константин сталкивается с демонами и своими пороками.",
+        "genres": ["Comics", "Ужасы,", "детектив"],
+        "image_url": "../bookpage/bookimages/hellbleizer.png",
+        "price": 650
+    },
+    {
+        "id": 11,
+        "title": "Человек-Паук 1994: Новые Приключения",
+        "author": "Marvel Comics Team",
+        "publisher": "Marvel",
+        "description": "Новые приключения Человека-Паука в 1994 году, где он сражается с Веномом и Доктором Осьминогом.",
+        "genres": ["Comics", "Супергерой", "Экшен"],
+        "image_url": "../bookpage/bookimages/Spider-men1994.png",
+        "price": 500
+    },
+    {
+        "id": 12,
+        "title": "История России в Комиксах",
+        "author": "Команда Бомбора",
+        "publisher": "Бомбора",
+        "description": "История России в формате комиксов, охватывающая период от древних славян до современной эпохи.",
+        "genres": ["Comics", "История", "Образование"],
+        "image_url": "../bookpage/bookimages/russian-story.png",
+        "price": 600
+    },
+    {
+        "id": 13,
+        "title": "Что если Веном завладел Дедпулом",
+        "author": "Ремендер Рик",
+        "publisher": "Marvel",
+        "description": "Встречайте, легендарные Веном и Дэдпул в одном выпуске! Они были созданы в одну эпоху, но при этом являются полными противоположностями.",
+        "genres": ["Comics", "Супергерой", "Экшен"],
+        "image_url": "../bookpage/bookimages/what-is-Venom.png",
+        "price": 550
+    },
+    {
+        "id": 14,
+        "title": "Магическая битва. Книга 1",
+        "author": "Акутами Гэгэ",
+        "publisher": "Азбука",
+        "description": "Юдзи Итадори – обычный старшеклассник. И хотя мальчик от рождения обладает выдающимися физическими данными, спорт его совсем не интересует. Юноша предпочитает проводить время со своими друзьями в Клубе исследователей паранормальных явлений. Однажды в руки школьников попадает высушенный палец Двуликого Сукуны, короля проклятий. И с этой секунды жизнь Итадори начинает круто меняться: Юдзи становится частью невиданного ранее мира… Мира магии и заклинаний..",
+        "genres": ["Manga", "Сёнэн", "Боевик"],
+        "image_url": "../bookpage/bookimages/madjic-fight.png",
+        "price": 865
+    },
+    {
+        "id": 15,
+        "title": "Берсерк. Том 1",
+        "author": "Кэнтаро Миура",
+        "publisher": "XL Media",
+        "description": "Одинокий воин, облаченный во все черное и с огромным, в человеческий рост, мечом за спиной, странствует по свету, верша свою месть силам зла. Там, где проходит его путь, неизменно остаются горы трупов, а кровь льется рекой.",
+        "genres": ["Manga", "Сёнэн", "Боевик", "Ужасы," ],
+        "image_url": "../bookpage/bookimages/Berserck.png",
+        "price": 600
+    },
+    {
+        "id": 16,
+        "title": "Наруто. Книга 1",
+        "author": "Масаси Кисимото",
+        "publisher": "Азбука",
+        "description": "Наруто Удзумаки – самый проблемный ученик академии ниндзя в деревне Коноха. День за днем он выдумывает всяческие проказы и выводит из себя окружающих! Однако даже у этого хулигана есть заветная мечта. Он собирается превзойти героев прошлого, стать величайшим ниндзя и обрести всеобщее признание! ",
+        "genres": ["Manga", "Сёнэн", "Сверхъестественное", "Боевик", "Драма", "Комедия"],
+        "image_url": "../bookpage/bookimages/Naruto.png",
+        "price": 900
+    }
+]
