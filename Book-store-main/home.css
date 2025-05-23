@@ -21,6 +21,15 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+:root {
+    --primary-color: #8E3796;
+    --text-color: #4F3076;
+    --background-color: #FFFFFF;
+    --card-background: #593796;
+    --light-text: #DAE034;
+}
+
 body {
     width: 100%;
     height: 100%;
@@ -704,4 +713,96 @@ body.dark .dark-mode-btn {
 /* Smooth Scroll */
 html {
     scroll-behavior: smooth;
+}
+
+#filters {
+    padding: 2rem 0;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.filters-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+}
+
+.filter-wrapper label {
+    color: #4F3076;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.filter-select {
+    padding: 0.5rem 1rem;
+    border: 2px solid #8E3796;
+    border-radius: 5px;
+    background-color: white;
+    color: #4F3076;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 200px;
+}
+
+.filter-select:hover {
+    border-color: #593796;
+}
+
+.filter-select:focus {
+    border-color: #8E3796;
+    box-shadow: 0 0 0 2px rgba(142, 55, 150, 0.2);
+}
+
+/* Стили для темной темы */
+body.dark .filter-wrapper label {
+    color: #DAE034;
+}
+
+body.dark .filter-select {
+    background-color: #4F3076;
+    color: #DAE034;
+    border-color: #8E3796;
+}
+
+body.dark .filter-select option {
+    background-color: #4F3076;
+    color: #DAE034;
+}
+
+@media (max-width: 768px) {
+    .filter-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+}
+
+.book-genre {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background-color: #8E3796;
+    color: #DAE034;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.no-books {
+    text-align: center;
+    color: #4F3076;
+    font-size: 1.2rem;
+    padding: 2rem;
 }

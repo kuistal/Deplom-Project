@@ -1,6 +1,14 @@
 // Load book details from localStorage
 window.onload = function () {
-    document.getElementById("bookImage").src = localStorage.getItem("bookImage");
+    var img = document.getElementById("bookImage");
+    img.src = localStorage.getItem("bookImage");
+    img.onerror = function() {
+        if (this.src.indexOf('placeholder.jpg') === -1) {
+            this.src = '../placeholder.jpg';
+        } else {
+            this.onerror = null;
+        }
+    };
     document.getElementById("bookTitle").innerText = localStorage.getItem("bookTitle");
     document.getElementById("bookAuthor").innerText = "By " + localStorage.getItem("bookAuthor");
     loadReviews();

@@ -25,6 +25,7 @@
     background: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .product-details h1 {
@@ -589,4 +590,34 @@ footer {
         color: #E63946;
     }
 
+}
+
+.fav-btn {
+    background: #fff;
+    border: none;
+    font-size: 1.5rem;
+    color: #8E3796;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #8E379622;
+    margin-left: 12px;
+}
+.fav-btn.fav-active {
+    color: #DAE034;
+    background: #8E3796;
+    box-shadow: 0 2px 8px #DAE03444;
+}
+
+.abs-fav-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 2;
+    margin: 0;
 }

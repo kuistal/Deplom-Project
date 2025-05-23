@@ -11,14 +11,14 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form id="loginForm">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input id="login-username" type="text" placeholder="Username" required>
                 <i class='bx bx-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input id="login-password" type="password" placeholder="Password" required>
                 <i class='bx bxs-lock-alt' ></i>
             </div>
 
@@ -33,6 +33,26 @@
                 <p>Don't have an account? <a href="register.html">Register</a></p>
             </div>
         </form>
+        <div id="login-message"></div>
     </div>
+    <script>
+    document.getElementById('loginForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        const res = await fetch('http://localhost:3001/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        document.getElementById('login-message').innerText = data.message || data.error;
+        if (res.ok) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            setTimeout(() => window.location.href = '../../profile/profile.html', 1500);
+        }
+    };
+    </script>
 </body>
 </html>

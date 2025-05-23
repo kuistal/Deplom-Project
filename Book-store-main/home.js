@@ -69,57 +69,70 @@ setTimeout(() => {
     document.getElementById("loader").style.display = "none";
 }, 2000);
 
-// Функция для загрузки books.json
-async function fetchBooks() {
-    try {
-        const response = await fetch('bookpage/books.json');
-        if (!response.ok) throw new Error('Не удалось загрузить книги');
-        const books = await response.json();
-        return books;
-    } catch (error) {
-        console.error('Ошибка:', error);
-        return [];
-    }
+// Глобальная переменная для хранения текущего фильтра
+let currentGenre = 'all';
+
+// Функция для фильтрации книг по жанру
+function filterBooksByGenre(books, genre) {
+    if (genre === 'all') return books;
+    return books.filter(book => book.genre && book.genre.toLowerCase() === genre);
 }
 
-// Переменные для карусели
-let currentIndex = 0;
-const booksPerPage = 3;
+// Обработчик изменения выбранного жанра
+document.getElementById('genre-select').addEventListener('change', async (event) => {
+    currentGenre = event.target.value;
+    currentIndex = 0;
+    await displayNewArrivals();
+});
 
-// Функция для отображения карточек новинок
+// Обновляем функцию displayNewArrivals для поддержки фильтрации
 async function displayNewArrivals() {
     const books = await fetchBooks();
+    const filteredBooks = filterBooksByGenre(books, currentGenre);
     const container = document.getElementById('new-collection');
     container.innerHTML = '';
 
-    const newArrivals = books.slice(currentIndex, currentIndex + booksPerPage);
+    const newArrivals = filteredBooks.slice(currentIndex, currentIndex + booksPerPage);
+
+    if (newArrivals.length === 0) {
+        container.innerHTML = '<p class="no-books">Книги не найдены</p>';
+        return;
+    }
 
     newArrivals.forEach(book => {
         const bookCard = document.createElement('div');
         bookCard.className = 'collection-book';
+        let imgSrc = '';
+        if (book.image && book.image !== 'undefined' && book.image !== '') {
+            imgSrc = book.image.startsWith('.') ? book.image.substring(1) : book.image;
+            if (imgSrc.startsWith('/')) imgSrc = imgSrc.substring(1);
+        } else {
+            imgSrc = 'bookpage/placeholder.jpg';
+        }
         bookCard.innerHTML = `
             <div class="collection-img">
-                <img src="bookpage/${book.image_url}" alt="${book.title}" loading="lazy" onerror="this.src='bookpage/placeholder.jpg';">
+                <img src="${imgSrc}" alt="${book.title}" loading="lazy" onerror="this.src='bookpage/placeholder.jpg';">
             </div>
             <div class="collection-content">
                 <div class="collection-content-detail">
                     <div>
                         <h5>${book.title}</h5>
-                        <p>${book.publisher}</p>
+                        <p>${book.publisher || ''}</p>
+                        <span class="book-genre">${book.genre || ''}</span>
                     </div>
                     <div>
-                        <h6>₹ ${book.price}</h6>
+                        <h6>₽ ${book.price}</h6>
                     </div>
                 </div>
                 <div>
-                    <a href="#" class="view-book-link">Купить</a>
+                    <a href="#" class="view-book-link" onclick="goToProductPage('${imgSrc}', '${book.title}', '${book.author}', ${book.price}, '', '', '${book.description || 'Описание отсутствует'}'); return false;">Купить</a>
                 </div>
             </div>
         `;
         container.appendChild(bookCard);
     });
 
-    updateCarouselButtons(books.length);
+    updateCarouselButtons(filteredBooks.length);
 }
 
 // Функция для обновления состояния кнопок карусели
@@ -154,3 +167,34 @@ document.getElementById('next-btn').addEventListener('click', async (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     displayNewArrivals();
 });
+
+function goToProductPage(image, title, author, price, oldPrice, discount, description) {
+    localStorage.setItem('productImage', image);
+    localStorage.setItem('productTitle', title);
+    localStorage.setItem('productAuthor', author);
+    localStorage.setItem('productPrice', price);
+    localStorage.setItem('productOldPrice', oldPrice);
+    localStorage.setItem('productDiscount', discount);
+    localStorage.setItem('productDescription', description);
+    window.location.href = 'product/product.html';
+}
+
+// Функция для загрузки books.json
+async function fetchBooks() {
+    try {
+        const genre = currentGenre !== 'all' ? `?genre=${currentGenre}` : '';
+        console.log('Fetching books with genre:', currentGenre);
+        const response = await fetch(`http://localhost:3001/api/books${genre}`);
+        if (!response.ok) throw new Error('Не удалось загрузить книги');
+        const books = await response.json();
+        console.log('Received books:', books);
+        return books;
+    } catch (error) {
+        console.error('Ошибка:', error);
+        return [];
+    }
+}
+
+// Переменные для карусели
+let currentIndex = 0;
+const booksPerPage = 3;

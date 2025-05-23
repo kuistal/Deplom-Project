@@ -24,7 +24,7 @@
             <a href="../home.html">О нас</a>
             <a href="index.html">Комиксы и манга</a>
             <a href="../contactpage/contact.html">Контакты</a>
-            <a href="../loginform/loginform/index.html">Профиль</a>
+            <a href="#" id="profile-link">Профиль</a>
             <a href="../profile/profile.html" class="profile-btn">
                 <i class="bi bi-person-circle"></i>
             </a>
@@ -83,5 +83,15 @@
     <button id="scrollToTopBtn" title="Scroll to Top">⇧</button>
     <script src="script.js"></script>
     <script src="../scrolltotop/scroll-to-top.js"></script>
+    <script>
+    document.getElementById('profile-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (localStorage.getItem('token')) {
+            window.location.href = '../profile/profile.html';
+        } else {
+            window.location.href = '../loginform/loginform/index.html';
+        }
+    });
+    </script>
 </body>
 </html>

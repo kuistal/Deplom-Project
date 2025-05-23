@@ -6,8 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const oldPrice = localStorage.getItem('productOldPrice');
     const discount = localStorage.getItem('productDiscount');
     const description = localStorage.getItem('productDescription');
+    const productId = localStorage.getItem('productId');
 
-    document.getElementById('product-image').src = image;
+    let imgSrc = '';
+    if (image && image !== 'undefined' && image !== '') {
+        imgSrc = image.startsWith('.') ? image.substring(1) : image;
+        if (imgSrc.startsWith('/')) imgSrc = imgSrc.substring(1);
+    } else {
+        imgSrc = 'bookpage/placeholder.jpg';
+    }
+
+    const productImage = document.getElementById('product-image');
+    productImage.src = '../' + imgSrc;
+    productImage.onerror = function() {
+        if (this.src.indexOf('placeholder.jpg') === -1) {
+            this.src = '../bookpage/placeholder.jpg';
+        } else {
+            this.onerror = null;
+        }
+    };
     document.getElementById('product-title').textContent = title;
     document.getElementById('product-author').textContent = `Автор: ${author}`;
     document.getElementById('product-old-price').textContent = `₽ ${oldPrice}`;
@@ -85,4 +102,43 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '../cartpage/cart.html';
     });
 
+    // --- Избранное ---
+    const favBtn = document.getElementById('favProductBtn');
+    let bookId = productId;
+    async function updateFavBtn() {
+        const token = localStorage.getItem('token');
+        if (!token || !bookId) return;
+        const res = await fetch('http://localhost:3001/api/favorites', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) return;
+        const favorites = await res.json();
+        if (favorites.includes(bookId)) {
+            favBtn.classList.add('fav-active');
+        } else {
+            favBtn.classList.remove('fav-active');
+        }
+    }
+    favBtn.addEventListener('click', async function() {
+        const token = localStorage.getItem('token');
+        if (!token || !bookId) {
+            alert('Войдите в аккаунт!');
+            return;
+        }
+        const res = await fetch('http://localhost:3001/api/favorites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ bookId })
+        });
+        const data = await res.json();
+        if (data.favorites && data.favorites.includes(bookId)) {
+            favBtn.classList.add('fav-active');
+        } else {
+            favBtn.classList.remove('fav-active');
+        }
+    });
+    updateFavBtn();
 });

@@ -11,12 +11,12 @@
 <body>
     <div class="profile-container">
         <aside class="sidebar">
-            <h2>Profile</h2>
+            <h2>Профиль</h2>
             <ul>
-                <li><a href="#"><i class="bi bi-book"></i> Orders</a></li>
-                <li><a href="#"><i class="bi bi-heart"></i> Wishlist</a></li>
-                <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
-                <li><a href="#" id="logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                <li><i class="fa fa-book"></i> Заказы</li>
+                <li><i class="fa fa-heart"></i> <a href="wishlist/wishlist.html">Избранное</a></li>
+                <li><i class="fa fa-cog"></i> Настройки</li>
+                <li><i class="fa fa-sign-out-alt"></i> <span id="logout">Выйти</span></li>
             </ul>
         </aside>
         <main class="profile-card">
@@ -28,11 +28,30 @@
             <p>Email: <span id="email">abc@example.com</span></p>
             <p>Bio: <span id="bio">Avid reader and book enthusiast. Always searching for the next great story.</span></p>
             <button class="edit-btn" id="editProfile">Edit Profile</button>
+            <button class="edit-btn" id="toShopBtn" style="margin-left:10px;">В магазин</button>
         </main>
     </div>
     <script src="profile.js"></script>
-
-
+    <script>
+    window.onload = async function() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) {
+        window.location.href = '../loginform/loginform/index.html';
+        return;
+      }
+      document.getElementById('username').innerText = user.name;
+      document.getElementById('email').innerText = user.email;
+      document.getElementById('bio').innerText = 'Логин: ' + user.username;
+    }
+    document.getElementById('logout').addEventListener('click', function() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '../loginform/loginform/index.html';
+    });
+    document.getElementById('toShopBtn').addEventListener('click', function() {
+      window.location.href = '../home.html';
+    });
+    </script>
 </body>
 </html>
 

@@ -46,8 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
+            let imgSrc = item.image;
+            if (!/^https?:\/\//.test(imgSrc) && !imgSrc.startsWith('../')) {
+                imgSrc = '../' + imgSrc;
+            }
             cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.title}">
+                <img src="${imgSrc}" alt="${item.title}" onerror="this.src='../bookpage/placeholder.jpg';">
                 <div class="cart-item-details">
                     <h3>${item.title}</h3>
                     <p>Автор: ${item.author}</p>
