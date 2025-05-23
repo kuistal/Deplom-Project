@@ -1,59 +1,88 @@
-# 📚 Book Store – Дипломный проект
+# 📚 Geeky's - Магазин комиксов
 
-Веб-приложение интернет-магазина книг, разработанное как выпускная квалификационная работа. Проект реализован с использованием HTML, CSS и JavaScript и предназначен для демонстрации навыков вёрстки, адаптивного дизайна, работы с формами и взаимодействия с данными.
-
----
+Веб-приложение интернет-магазина комиксов, разработанное как выпускная квалификационная работа для ВШП Тверь. Проект демонстрирует навыки вёрстки, адаптивного дизайна, работы с формами и взаимодействия с данными.
 
 ## 📌 Описание
 
-Пользовательский интерфейс включает:
+Интернет-магазин комиксов с широким ассортиментом различных издательств и жанров. Пользовательский интерфейс включает:
+
 - Главную страницу с описанием магазина
-- Каталог книг
+- Каталог комиксов с фильтрацией по жанрам
 - Корзину покупок
-- Формы регистрации и входа
+- Систему авторизации и регистрации
 - Личный кабинет пользователя
+- Список избранных товаров
 - Контактную форму
 - Страницы политики конфиденциальности, условий использования и настройки cookies
-
----
+- Адаптивный дизайн
+- Поддержку темной темы
 
 ## 🛠️ Технологии
 
-| Технология | Назначение                      |
-|------------|----------------------------------|
-| HTML5      | Структура страниц                |
-| CSS3       | Стилизация и адаптивность        |
-| JavaScript | Обработка событий, динамика      |
-| JSON       | Хранение данных о книгах         |
+| Технология | Назначение |
+|------------|------------|
+| HTML5 | Структура страниц |
+| CSS3 | Стилизация и адаптивность |
+| JavaScript | Обработка событий, динамика |
+| Node.js | Серверная часть |
+| Express.js | Web-фреймворк |
+| MySQL | База данных |
+| JWT | Аутентификация |
 
----
+## 💻 Установка и запуск
 
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/ваш-username/geekys-comic-store.git
+cd geekys-comic-store
+```
 
-## 💻 Используемые технологии
+2. Установите зависимости:
+```bash
+npm install
+```
 
-- HTML5 и CSS3 для структуры и стилей
-- JavaScript для интерактивности
-- Адаптивная вёрстка
+3. Создайте базу данных MySQL:
+```sql
+CREATE DATABASE bookstore;
+USE bookstore;
 
----
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    favorites TEXT
+);
 
-## 📷 Превью
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    price DECIMAL(10,2),
+    image VARCHAR(255),
+    publisher VARCHAR(255),
+    description TEXT,
+    genre VARCHAR(50)
+);
+```
 
-![opera_DhW0IFhZh5](https://github.com/user-attachments/assets/8ff98200-b9c8-464a-9e91-45509e7bce9e)
-![opera_xt4ke5hwtd](https://github.com/user-attachments/assets/4b352249-cfb5-441f-97f9-211a807e87c4)
+4. Настройте подключение к базе данных в файле `server.js`
 
----
+5. Запустите сервер:
+```bash
+node server.js
+```
 
-## 🚀 Как запустить
-
-1. Склонируйте репозиторий:
-   ```bash
-   git clone https://github.com/kuistal/Course-Project.git
-
+6. Откройте в браузере:
+```
+http://localhost:3001
+```
 
 ## 📁 Структура проекта
 
-```plaintext
+```
 Book-store-main/
 │
 ├── home.html                     # Главная страница
@@ -61,72 +90,43 @@ Book-store-main/
 ├── home.js                       # JS логика
 ├── favicon.png                   # Иконка сайта
 │
-├── accessibility.html            # Страница доступности
-├── cookie-preferences.html       # Настройки cookie
-├── privacy-notice.html           # Политика конфиденциальности
-├── terms-of-use.html             # Условия использования
+├── assets/                       # Графика и медиафайлы
+│   └── image/                    # Изображения и логотипы
 │
-├── .vscode/                      # Настройки среды разработки
-│   ├── launch.json
-│   ├── settings.json
-│   └── tasks.json
-│
-├── assets/
-│   └── image/                    # Графика и логотипы
-│       ├── LoGoGeekys.png
-│       ├── book2.png
-│       └── ...
-│
-├── FAQ/
-│   ├── FAQ2.html
-│   └── Style3.css
-│
-├── bookpage/                     # Каталог книг и отзывы
+├── bookpage/                     # Каталог комиксов
 │   ├── index.html
 │   ├── script.js
 │   ├── style.css
-│   ├── books.json                # Список книг
-│   ├── foonXL.png
-│   ├── bookimages/               # Обложки
-│   │   ├── Naruto.png
-│   │   └── ...
-│   └── review/                   # Отзывы о книгах
-│       ├── review.html
-│       ├── review.css
-│       └── review.js
+│   ├── books.json               # Данные о комиксах
+│   ├── bookimages/             # Обложки
+│   └── review/                 # Система отзывов
 │
-├── cartpage/                     # Корзина пользователя
-│   ├── cart.html
-│   ├── cart.css
-│   └── card.js
+├── cartpage/                    # Корзина покупок
+├── contactpage/                 # Контактная форма
+├── loginform/                   # Авторизация
+├── product/                     # Страница товара
+├── profile/                     # Личный кабинет
+│   └── wishlist/               # Избранное
 │
-├── contactpage/
-│   ├── contact.html              # Форма обратной связи
-│   └── contactpage.css
-│
-├── loginform/                    # Авторизация и регистрация
-│   ├── loginform/
-│   │   ├── index.html
-│   │   ├── register.html
-│   │   ├── style.css
-│   │   ├── background.jpg
-│   │   └── background2jpg.jpg
-│   └── .vscode/
-│       └── settings.json
-│
-├── product/                      # Карточка товара
-│   ├── product.html
-│   ├── product.js
-│   └── style.css
-│
-├── profile/                      # Личный кабинет
-│   ├── profile.html
-│   ├── profile.css
-│   ├── profile.js
-│   └── image.png
-│
-└── scrolltotop/                  # Кнопка прокрутки вверх
-    ├── scroll-to-top.css
-    └── scroll-to-top.js
+├── FAQ/                         # Часто задаваемые вопросы
+├── server.js                    # Серверная часть
+└── package.json                 # Зависимости проекта
+```
 
----
+## 🔐 API Endpoints
+
+- `GET /api/books` - Получение списка комиксов
+- `GET /api/books?genre=marvel` - Фильтрация по жанру
+- `POST /api/register` - Регистрация пользователя
+- `POST /api/login` - Авторизация
+- `GET /api/profile` - Получение профиля
+- `GET /api/favorites` - Список избранного
+- `POST /api/favorites` - Добавление/удаление из избранного
+
+## 👥 Автор
+
+Проект разработан как выпускная квалификационная работа для ВШП Тверь.
+
+## 📄 Лицензия
+
+MIT License. Подробности в файле [LICENSE](LICENSE).
