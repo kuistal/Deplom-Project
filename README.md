@@ -19,6 +19,13 @@
 - Адаптивный дизайн
 - Поддержку темной темы
 
+## 📷 Фото проекта
+![image](https://github.com/user-attachments/assets/dffa08eb-b93d-4bd9-8955-69596b0231e0)
+![image](https://github.com/user-attachments/assets/c0d5fabe-43da-47a6-b5d8-85536d69ef3d)
+![image](https://github.com/user-attachments/assets/f3b24126-ab58-4c10-8688-c45d3d785b64)
+
+
+
 ## 🛠️ Технологии
 
 | Технология   | Назначение                                   |
