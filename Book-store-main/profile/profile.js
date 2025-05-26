@@ -23,3 +23,20 @@ document.getElementById('avatarInput').addEventListener('change', function(event
         reader.readAsDataURL(file);
     }
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.role === 'admin') {
+        const adminBtn = document.getElementById('adminPanelBtn');
+        adminBtn.style.display = 'inline-block';
+        adminBtn.addEventListener('click', function() {
+            // Дополнительная проверка на всякий случай
+            const userCheck = JSON.parse(localStorage.getItem('user'));
+            if (userCheck && userCheck.role === 'admin') {
+                window.location.href = '../admin/admin.html';
+            } else {
+                alert('У вас нет прав администратора!');
+            }
+        });
+    }
+});

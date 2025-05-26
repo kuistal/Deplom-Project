@@ -1,10 +1,31 @@
+:root {
+    --primary: #8E3796;
+    --accent: #DAE034;
+    --background: #fff;
+    --footer-bg: #4F3076;
+    --footer-text: #DAE034;
+    --footer-link-bg: #593796;
+    --footer-link-hover: #8E3796;
+    --footer-shadow: 0 2px 8px #8E379622;
+}
+body.dark {
+    --primary: #DAE034;
+    --accent: #8E3796;
+    --background: #2a183a;
+    --footer-bg: #2a183a;
+    --footer-text: #DAE034;
+    --footer-link-bg: #3a2560;
+    --footer-link-hover: #DAE034;
+    --footer-shadow: 0 2px 8px #DAE03422;
+}
 footer {
-    background: #4F3076;
-    color: #DAE034;
+    background: var(--footer-bg);
+    color: var(--footer-text);
     padding: 60px 20px 30px;
     margin-top: 80px;
     position: relative;
     overflow: hidden;
+    transition: background 0.3s, color 0.3s;
 }
 footer .social {
     text-align: center;
@@ -15,10 +36,10 @@ footer .social h3 {
     margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #DAE034;
+    color: var(--footer-text);
 }
 footer .social a {
-    color: #DAE034;
+    color: var(--footer-text);
     font-size: 2.1rem;
     background: rgba(142, 55, 150, 0.18);
     width: 54px;
@@ -48,7 +69,7 @@ footer .social a i, footer .social a svg {
 footer .social a:hover {
     background: rgba(142, 55, 150, 0.32);
     transform: translateY(-5px) scale(1.08);
-    color: #DAE034;
+    color: var(--footer-text);
 }
 footer .text_foot {
     text-align: center;
@@ -73,10 +94,10 @@ footer .text_foot li {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #DAE034;
+    color: var(--footer-text);
 }
 footer .text_foot li:hover {
-    color: #8E3796;
+    color: var(--footer-link-hover);
 }
 footer .text_foot li::after {
     content: '';
@@ -85,7 +106,7 @@ footer .text_foot li::after {
     bottom: -5px;
     width: 0;
     height: 2px;
-    background: #8E3796;
+    background: var(--footer-link-hover);
     transition: width 0.3s ease;
 }
 footer .text_foot li:hover::after {
@@ -93,8 +114,8 @@ footer .text_foot li:hover::after {
 }
 footer .text_foot a {
     display: inline-block;
-    background: #593796;
-    color: #DAE034 !important;
+    background: var(--footer-link-bg);
+    color: var(--footer-text) !important;
     padding: 12px 28px;
     border-radius: 8px;
     text-decoration: none;
@@ -103,22 +124,23 @@ footer .text_foot a {
     margin: 8px 12px;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     border: none;
-    box-shadow: 0 2px 8px #8E379622;
+    box-shadow: var(--footer-shadow);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 footer .text_foot a:hover {
-    background: #8E3796;
+    background: var(--footer-link-hover);
     color: #fff !important;
-    box-shadow: 0 4px 16px #DAE03433;
+    box-shadow: 0 4px 16px var(--accent)33;
     text-decoration: none;
 }
 footer .copyright {
     text-align: center;
     padding-top: 30px;
     font-size: 0.9rem;
-    color: #DAE034;
+    color: var(--footer-text);
     letter-spacing: 1px;
+    transition: color 0.3s;
 }
 @media (max-width: 768px) {
     footer .social a {

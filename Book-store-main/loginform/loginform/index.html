@@ -8,33 +8,39 @@
     <link rel="icon" type="image/png" href="../../assets/image/vHu9xligIEg-Photoroom.png">
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../footer.css">
+    <link rel="stylesheet" href="../../home.css">
 </head>
 <body>
+    <div id="header"></div>
     <div class="wrapper">
         <form id="loginForm">
-            <h1>Login</h1>
+            <h1>Вход</h1>
             <div class="input-box">
-                <input id="login-username" type="text" placeholder="Username" required>
+                <input id="login-username" type="text" placeholder="Логин" required>
                 <i class='bx bx-user'></i>
             </div>
             <div class="input-box">
-                <input id="login-password" type="password" placeholder="Password" required>
+                <input id="login-password" type="password" placeholder="Пароль" required>
                 <i class='bx bxs-lock-alt' ></i>
             </div>
 
             <div class="remeber-forgot">
-                <label><input type="checkbox">Remember me</label>
-                <a href="#">Forgot Password?</a>
+                <label><input type="checkbox">Запомнить меня</label>
+                <a href="#">Забыли пароль?</a>
             </div>
 
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn">Войти</button>
             
             <div class="register-link">
-                <p>Don't have an account? <a href="register.html">Register</a></p>
+                <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
             </div>
         </form>
         <div id="login-message"></div>
     </div>
+    <div id="footer"></div>
+    <script src="../../header.js"></script>
+    <script src="../../theme.js"></script>
     <script>
     document.getElementById('loginForm').onsubmit = async function(e) {
         e.preventDefault();
@@ -55,5 +61,6 @@
         }
     };
     </script>
+    <script src="../../footer.js"></script>
 </body>
 </html>

@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Избранное</title>
     <link rel="stylesheet" href="../profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../../footer.css">
+    <link rel="stylesheet" href="../../home.css">
 </head>
 <body>
+    <script src="../../header.js"></script>
+    <script src="../../theme.js"></script>
     <div class="profile-container">
         <aside class="sidebar">
             <h2>Профиль</h2>
@@ -18,9 +23,19 @@
         </aside>
         <main class="profile-card" id="wishlist-card">
             <h1>Избранные книги</h1>
-            <div id="wishlist-books"></div>
+            <div id="wishlist-books">
+                <div class="wishlist-book-card">
+                    <img src="../../assets/image/book7.png" alt="Book Cover" class="wishlist-book-img">
+                    <div class="wishlist-book-info">
+                        <h2>Название книги</h2>
+                        <p>Автор: Имя Автора</p>
+                        <button class="wishlist-remove-btn">Удалить</button>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="wishlist.js"></script>
+    <script src="../../footer.js"></script>
 </body>
 </html> 

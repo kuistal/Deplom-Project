@@ -8,8 +8,8 @@ body {
     width: 100%;
     height: 100%;
     font-family: 'Poppins', sans-serif;
-    background: #FFFFFF;
-    color: #4F3076;
+    background: var(--background);
+    color: var(--text);
 }
 html {
     scroll-behavior: smooth;
@@ -42,7 +42,7 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #DAE034;
+    color: var(--accent);
     z-index: 1;
     width: 80%;
     max-width: 800px;
@@ -53,10 +53,10 @@ html {
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     animation: fadeInUp 1s ease;
-    color: #DAE034;
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    border-bottom: 2px solid #8E3796;
+    border-bottom: 2px solid var(--primary);
     padding-bottom: 10px;
 }
 
@@ -71,8 +71,8 @@ html {
 }
 .button a {
     text-decoration: none;
-    color: #DAE034;
-    background: #593796;
+    color: var(--btn-text);
+    background: var(--btn-bg);
     padding: 15px 40px;
     border-radius: 30px;
     font-size: 1.2rem;
@@ -82,13 +82,13 @@ html {
     transition: all 0.3s ease;
     display: inline-block;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 2px solid #8E3796;
+    border: 2px solid var(--primary);
 }
 .button a:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    background: #8E3796;
-    color: #DAE034;
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
 }
 
 /* Animations */
@@ -108,7 +108,7 @@ html {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #4F3076;
+    color: var(--text);
     margin: 40px 0;
     position: relative;
     padding-bottom: 10px;
@@ -121,7 +121,7 @@ html {
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: #8E3796;
+    background: var(--primary);
 }
 .container {
     margin: 30px auto;
@@ -139,7 +139,7 @@ html {
     position: relative;
     width: 280px;
     padding: 15px;
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -152,7 +152,7 @@ html {
     width: 100%;
     height: 300px;
     object-fit: contain;
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 8px;
     margin-bottom: 15px;
     transition: transform 0.3s ease;
@@ -164,7 +164,7 @@ html {
     width: 100%;
     height: 300px;
     object-fit: contain;
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 8px;
     margin-bottom: 15px;
 }
@@ -172,7 +172,7 @@ html {
     position: absolute;
     top: 14px;
     right: 14px;
-    background: #fff;
+    background: var(--card-bg);
     border: none;
     width: 40px;
     height: 40px;
@@ -186,7 +186,7 @@ html {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .fav-btn i {
-    color: #8E3796;
+    color: var(--primary);
     font-size: 20px;
     transition: all 0.3s ease;
 }
@@ -195,17 +195,17 @@ html {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 .fav-btn.fav-active {
-    background: #8E3796;
+    background: var(--primary);
 }
 .fav-btn.fav-active i {
-    color: #DAE034;
+    color: var(--accent);
 }
 .price-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px 8px 18px;
-    background: #fff;
+    background: var(--card-bg);
     border-bottom: 1px solid #f0f0f0;
     font-size: 1.08rem;
 }
@@ -230,18 +230,18 @@ html {
     padding: 12px 18px 0 18px;
     margin: 0;
     font-size: 1.13rem;
-    color: #4F3076;
+    color: var(--text);
     line-height: 1.3;
     min-height: 60px;
-    background: #fff;
+    background: var(--card-bg);
     border-bottom: 1px solid #f0f0f0;
     text-align: left;
 }
 .card1 i {
-    color: #8E3796;
+    color: var(--primary);
 }
 .card1 .author {
-    color: #8E3796;
+    color: var(--primary);
     font-weight: bold;
     font-style: italic;
     font-size: 1.05em;
@@ -253,13 +253,13 @@ html {
     padding: 20px 18px 18px 18px;
     display: flex;
     justify-content: center;
-    background: #fff;
+    background: var(--card-bg);
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     margin-top: auto;
 }
 .sec a {
-    background: #8E3796;
+    background: var(--primary);
     color: #FFFFFF;
     padding: 12px 36px;
     border-radius: 22px;
@@ -272,10 +272,10 @@ html {
     width: 100%;
     max-width: 180px;
     font-size: 1.13rem;
-    box-shadow: 0 2px 8px #8E379622;
+    box-shadow: 0 2px 8px var(--primary)22;
 }
 .sec a:hover {
-    background: #4F3076;
+    background: var(--primary);
     transform: scale(1.05);
 }
 #rup, .review-btn {
@@ -284,8 +284,8 @@ html {
 
 /* Footer */
 footer {
-    background: #4F3076;
-    color: #DAE034;
+    background: var(--primary);
+    color: var(--accent);
     padding: 60px 20px 30px;
     margin-top: 80px;
     position: relative;
@@ -298,7 +298,7 @@ footer::before {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, transparent, #8E3796, transparent);
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 .footer-content {
     max-width: 1200px;
@@ -317,7 +317,7 @@ footer::before {
     position: relative;
     padding-bottom: 10px;
     display: inline-block;
-    color: #DAE034;
+    color: var(--accent);
 }
 .footer-section h3::after {
     content: '';
@@ -326,7 +326,7 @@ footer::before {
     bottom: 0;
     width: 50px;
     height: 2px;
-    background: #8E3796;
+    background: var(--primary);
     transition: width 0.3s ease;
 }
 .footer-section:hover h3::after {
@@ -341,7 +341,7 @@ footer::before {
     margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #DAE034;
+    color: var(--accent);
 }
 .social-links {
     display: flex;
@@ -349,7 +349,7 @@ footer::before {
     gap: 20px;
 }
 .social a {
-    color: #DAE034;
+    color: var(--accent);
     font-size: 1.8rem;
     background: rgba(142, 55, 150, 0.1);
     width: 50px;
@@ -364,7 +364,7 @@ footer::before {
 .social a:hover {
     background: rgba(142, 55, 150, 0.2);
     transform: translateY(-5px);
-    color: #8E3796;
+    color: var(--primary);
 }
 .text_foot {
     text-align: center;
@@ -387,10 +387,10 @@ footer::before {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #DAE034;
+    color: var(--accent);
 }
 .text_foot li:hover {
-    color: #8E3796;
+    color: var(--primary);
 }
 .text_foot li::after {
     content: '';
@@ -399,7 +399,7 @@ footer::before {
     bottom: -5px;
     width: 0;
     height: 2px;
-    background: #8E3796;
+    background: var(--primary);
     transition: width 0.3s ease;
 }
 .text_foot li:hover::after {
@@ -409,28 +409,38 @@ footer::before {
     text-align: center;
     padding-top: 30px;
     font-size: 0.9rem;
-    color: #DAE034;
+    color: var(--accent);
     letter-spacing: 1px;
 }
 
 /* Dark Mode Styles */
 body.dark {
-    background: #4F3076;
-    color: #DAE034;
+    --primary: #DAE034;
+    --accent: #8E3796;
+    --background: #2a183a;
+    --text: #DAE034;
+    --section-bg: #3a2560;
+    --card-bg: #2a183a;
+    --input-bg: #3a2560;
+    --input-border: #DAE034;
+    --btn-bg: #DAE034;
+    --btn-text: #8E3796;
+    --btn-bg-hover: #8E3796;
+    --btn-text-hover: #DAE034;
 }
 nav.dark {
-    background: #4F3076;
+    background: var(--primary);
 }
 .right-nav a.dark {
-    color: #DAE034;
+    color: var(--accent);
 }
 .right-nav a.dark:hover {
-    color: #8E3796;
+    color: var(--primary);
 }
 .dark-mode-btn {
     background: none;
     border: none;
-    color: #DAE034;
+    color: var(--accent);
     cursor: pointer;
     padding: 10px;
     font-size: 20px;
@@ -443,20 +453,20 @@ nav.dark {
     transform: scale(1.1);
 }
 .dark-mode .container {
-    background: #4F3076;
+    background: var(--primary);
 }
 .dark-mode .container h3#coll {
-    color: #DAE034;
+    color: var(--accent);
 }
 .dark-mode .card1 {
-    background: #593796;
+    background: var(--card-bg);
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 .dark-mode .card1 p {
-    color: #DAE034;
+    color: var(--accent);
 }
 .dark-mode .price-section {
-    background: #593796;
+    background: var(--card-bg);
 }
 .dark-mode .old-price {
     color: #BBBBBB;
@@ -469,41 +479,41 @@ nav.dark {
     color: #FFFFFF;
 }
 .dark-mode .sec {
-    background: #593796;
+    background: var(--card-bg);
 }
 .dark-mode .sec a {
-    background: #8E3796;
+    background: var(--primary);
     color: #FFFFFF;
 }
 .dark-mode .sec a:hover {
-    background: #593796;
+    background: var(--primary);
 }
 .dark-mode footer {
-    background: #4F3076;
+    background: var(--primary);
 }
 .dark-mode .social h3,
 .dark-mode .social-links a,
 .dark-mode .text_foot ul li {
-    color: #DAE034;
+    color: var(--accent);
 }
 .dark-mode .social-links a:hover {
-    color: #8E3796;
+    color: var(--primary);
 }
 footer.dark {
-    background: #593796;
-    color: #DAE034;
+    background: var(--primary);
+    color: var(--accent);
 }
 .social a.dark {
-    color: #DAE034;
+    color: var(--accent);
 }
 .social a.dark:hover {
-    color: #8E3796;
+    color: var(--primary);
 }
 .text_foot ul li.dark {
-    color: #DAE034;
+    color: var(--accent);
 }
 .copyright.dark {
-    color: #DAE034;
+    color: var(--accent);
 }
 
 /* Responsive Styles */
@@ -515,22 +525,22 @@ footer.dark {
         top: 85px;
         left: 0;
         width: 100%;
-        background: #4F3076;
+        background: var(--primary);
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         text-align: center;
         z-index: 100;
-        border-top: 2px solid #8E3796;
+        border-top: 2px solid var(--primary);
     }
     .right-nav a {
         display: block;
         padding: 15px;
         text-decoration: none;
-        color: #DAE034;
+        color: var(--accent);
         position: relative;
     }
     .right-nav a:hover {
-        color: #8E3796;
+        color: var(--primary);
         transform: scale(1.05);
         text-decoration: none;
     }
@@ -541,7 +551,7 @@ footer.dark {
         bottom: -3px;
         width: 100%;
         height: 2px;
-        background: #8E3796;
+        background: var(--primary);
         transform: scaleX(0);
         transition: transform 0.3s ease-in-out;
     }
@@ -619,8 +629,8 @@ footer.dark {
 }
 
 .main-btn {
-    background: #8E3796;
-    color: #DAE034;
+    background: var(--primary);
+    color: var(--accent);
     border: none;
     border-radius: 24px;
     padding: 14px 38px;
@@ -629,23 +639,23 @@ footer.dark {
     letter-spacing: 1px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px #8E379622;
+    box-shadow: 0 2px 8px var(--primary)22;
     margin: 0 4px;
 }
 .main-btn:hover {
-    background: #593796;
-    color: #fff;
+    background: var(--primary);
+    color: var(--accent);
 }
 .main-btn.active {
-    background: #DAE034;
-    color: #8E3796;
-    box-shadow: 0 4px 16px #8E379644;
+    background: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 4px 16px var(--primary)44;
 }
 
 .tab-link {
     font-size: 2rem;
     font-weight: 700;
-    color: #4F3076;
+    color: var(--text);
     text-decoration: none;
     padding: 6px 18px 8px 18px;
     border-bottom: 3px solid transparent;
@@ -653,11 +663,55 @@ footer.dark {
     cursor: pointer;
 }
 .tab-link:hover {
-    color: #8E3796;
-    border-bottom: 3px solid #8E3796;
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
 }
 .tab-link.active {
-    color: #8E3796;
-    border-bottom: 3px solid #8E3796;
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
     background: none;
+}
+
+:root {
+    --primary: #8E3796;
+    --accent: #DAE034;
+    --background: #fff;
+    --text: #4F3076;
+    --section-bg: #f9f6ff;
+    --card-bg: #fff;
+    --input-bg: #fff;
+    --input-border: #8E3796;
+    --btn-bg: #8E3796;
+    --btn-text: #DAE034;
+    --btn-bg-hover: #DAE034;
+    --btn-text-hover: #8E3796;
+}
+body, html {
+    background: var(--background);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+section, .container, .cards, .card {
+    background: var(--section-bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+.card, .cards {
+    background: var(--card-bg);
+    color: var(--text);
+}
+input, textarea, select {
+    background: var(--input-bg);
+    color: var(--text);
+    border: 2px solid var(--input-border);
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+button, .btn, .buy-btn, .add-to-cart-btn, .checkout-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    transition: background 0.3s, color 0.3s;
+}
+button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
 }

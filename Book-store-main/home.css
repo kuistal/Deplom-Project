@@ -23,11 +23,47 @@
 }
 
 :root {
-    --primary-color: #8E3796;
-    --text-color: #4F3076;
-    --background-color: #FFFFFF;
-    --card-background: #593796;
-    --light-text: #DAE034;
+    --primary: #8E3796;
+    --accent: #DAE034;
+    --background: #fff;
+    --text: #4F3076;
+    --nav-bg: #4F3076;
+    --nav-text: #DAE034;
+    --nav-link-hover: #DAE034;
+    --nav-link: #DAE034;
+    --section-bg: #f9f6ff;
+    --card-bg: #fff;
+    --input-bg: #fff;
+    --input-border: #8E3796;
+    --btn-bg: #8E3796;
+    --btn-text: #DAE034;
+    --btn-bg-hover: #DAE034;
+    --btn-text-hover: #8E3796;
+    --shadow: 0 4px 24px rgba(142, 55, 150, 0.10);
+}
+body.dark {
+    --primary: #DAE034;
+    --accent: #8E3796;
+    --background: #2a183a;
+    --text: #DAE034;
+    --nav-bg: #2a183a;
+    --nav-text: #DAE034;
+    --nav-link-hover: #8E3796;
+    --nav-link: #DAE034;
+    --section-bg: #3a2560;
+    --card-bg: #2a183a;
+    --input-bg: #3a2560;
+    --input-border: #DAE034;
+    --btn-bg: #DAE034;
+    --btn-text: #8E3796;
+    --btn-bg-hover: #8E3796;
+    --btn-text-hover: #DAE034;
+    --shadow: 0 4px 24px rgba(218, 224, 52, 0.10);
+}
+body, html {
+    background: var(--background);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
 }
 
 body {
@@ -36,8 +72,6 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: #FFFFFF; /* Main background */
-    color: #4F3076; /* Text on white background */
     text-align: center;
 }
 
@@ -193,8 +227,8 @@ body.dark #about {
 /* Navigation */
 nav {
     width: 100%;
-    background: #4F3076;
-    color: #DAE034;
+    background: var(--nav-bg);
+    color: var(--nav-text);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -203,12 +237,13 @@ nav {
     position: relative;
     z-index: 100;
     min-height: 70px;
+    transition: background 0.3s, color 0.3s;
 }
 nav .left-nav img {
     height: 54px;
     width: auto;
     border-radius: 12px;
-    box-shadow: 0 2px 8px #8E379622;
+    box-shadow: 0 2px 8px var(--primary)22;
 }
 nav .right-nav {
     display: flex;
@@ -216,7 +251,7 @@ nav .right-nav {
     gap: 18px;
 }
 nav .right-nav a, nav .right-nav button {
-    color: #DAE034;
+    color: var(--nav-link);
     background: none;
     border: none;
     font-size: 1.1rem;
@@ -225,7 +260,7 @@ nav .right-nav a, nav .right-nav button {
     margin: 0 6px;
     padding: 8px 18px;
     border-radius: 8px;
-    transition: background 0.2s, color 0.2s;
+    transition: color 0.3s, background 0.3s;
     cursor: pointer;
     outline: none;
     display: flex;
@@ -233,8 +268,7 @@ nav .right-nav a, nav .right-nav button {
     gap: 6px;
 }
 nav .right-nav a:hover, nav .right-nav button:hover {
-    background: #8E3796;
-    color: #fff;
+    color: var(--nav-link-hover);
 }
 nav .profile-btn {
     background: #593796;
@@ -504,7 +538,7 @@ section#new-arrival .new-collection .collection-book .collection-content a:hover
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    background: #593796; /* Navigation and cards */
+    background: var(--section-bg);
 }
 .collection .collection-title {
     color: #DAE034; /* Requested color for "Explore Our Collection" */
@@ -841,4 +875,29 @@ body.dark .filter-select option {
     color: #4F3076;
     font-size: 1.2rem;
     padding: 2rem;
+}
+
+section, .collection, .profile-card, .container, .cart-container, .product-container, .cards, .card {
+    background: var(--section-bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+.card, .cards, .cart-container, .product-container {
+    background: var(--card-bg);
+    color: var(--text);
+}
+input, textarea, select {
+    background: var(--input-bg);
+    color: var(--text);
+    border: 2px solid var(--input-border);
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+button, .btn, .buy-btn, .add-to-cart-btn, .checkout-btn, .review-submit-btn, .wishlist-remove-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    transition: background 0.3s, color 0.3s;
+}
+button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:hover, .review-submit-btn:hover, .wishlist-remove-btn:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
 }

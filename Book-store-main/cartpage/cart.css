@@ -3,8 +3,8 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: #FFFFFF;
-    color: #4F3076;
+    background: var(--background);
+    color: var(--text);
 }
 
 /* Navigation (Header) Styles */
@@ -220,14 +220,19 @@ nav {
 
 /* Cart Container Styles */
 .cart-container {
-    max-width: 1000px;
-    margin: 120px auto 40px;
-    padding: 20px;
+    background: var(--section-bg);
+    color: var(--text);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(142, 55, 150, 0.10);
+    padding: 32px 24px;
+    margin: 60px auto 0 auto;
+    max-width: 700px;
+    transition: background 0.3s, color 0.3s;
 }
 
 .cart-container h1 {
     font-size: 2rem;
-    color: #4F3076;
+    color: var(--primary);
     text-align: center;
     margin-bottom: 30px;
 }
@@ -241,10 +246,12 @@ nav {
 .cart-item {
     display: flex;
     gap: 20px;
-    background: #FFFFFF;
+    background: var(--card-bg);
+    color: var(--text);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, color 0.3s;
 }
 
 .cart-item img {
@@ -260,14 +267,16 @@ nav {
 
 .cart-item-details h3 {
     font-size: 1.5rem;
-    color: #4F3076;
+    color: var(--primary);
     margin-bottom: 10px;
+    transition: color 0.3s;
 }
 
 .cart-item-details p {
     font-size: 1rem;
-    color: #666;
+    color: var(--text);
     margin-bottom: 5px;
+    transition: color 0.3s;
 }
 
 .cart-item-details .remove-btn {
@@ -288,26 +297,35 @@ nav {
 .cart-summary {
     margin-top: 30px;
     text-align: right;
+    background: var(--card-bg);
+    color: var(--text);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--primary)22;
+    padding: 24px;
+    margin-bottom: 18px;
+    transition: background 0.3s, color 0.3s;
 }
 
 .cart-summary h2 {
     font-size: 1.5rem;
-    color: #4F3076;
+    color: var(--primary);
     margin-bottom: 20px;
+    transition: color 0.3s;
 }
 
 .cart-summary .checkout-btn {
     padding: 10px 30px;
-    background: #1E90FF;
-    color: #FFFFFF;
+    background: var(--btn-bg);
+    color: var(--btn-text);
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s, color 0.3s;
 }
 
 .cart-summary .checkout-btn:hover {
-    background: #1C86EE;
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
     transform: scale(1.05);
 }
 
@@ -516,4 +534,44 @@ footer {
     .copyright {
         font-size: 0.9rem;
     }
+}
+
+:root {
+    --primary: #8E3796;
+    --accent: #DAE034;
+    --background: #fff;
+    --text: #4F3076;
+    --section-bg: #f9f6ff;
+    --card-bg: #fff;
+    --input-bg: #fff;
+    --input-border: #8E3796;
+    --btn-bg: #8E3796;
+    --btn-text: #DAE034;
+    --btn-bg-hover: #DAE034;
+    --btn-text-hover: #8E3796;
+}
+body.dark {
+    --primary: #DAE034;
+    --accent: #8E3796;
+    --background: #2a183a;
+    --text: #DAE034;
+    --section-bg: #3a2560;
+    --card-bg: #2a183a;
+    --input-bg: #3a2560;
+    --input-border: #DAE034;
+    --btn-bg: #DAE034;
+    --btn-text: #8E3796;
+    --btn-bg-hover: #8E3796;
+    --btn-text-hover: #DAE034;
+}
+body, html {
+    background: var(--background);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+input, textarea, select {
+    background: var(--input-bg);
+    color: var(--text);
+    border: 2px solid var(--input-border);
+    transition: background 0.3s, color 0.3s, border 0.3s;
 }

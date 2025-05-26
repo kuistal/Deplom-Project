@@ -8,25 +8,31 @@
 
 /* Background */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #593796 0%, #8E3796 100%);
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f9f6ff 0%, #f3f0fa 100%);
     font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* Main Container */
 .wrapper {
-    width: 420px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid #8E3796;
-    box-shadow: 0 8px 32px 0 rgba(89, 55, 150, 0.25);
-    color: #DAE034;
+    margin: 0 auto;
+    margin-top: 110px;
+    margin-bottom: 110px;
+    box-shadow: 0 8px 40px 0 rgba(89, 55, 150, 0.18);
     border-radius: 18px;
+    background: #fff;
+    position: relative;
+    z-index: 20;
+    width: 420px;
     padding: 32px 40px 24px 40px;
     transition: transform 0.3s;
     backdrop-filter: blur(10px);
+    min-height: 0;
 }
 
 .wrapper:hover {
@@ -38,7 +44,7 @@ body {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 18px;
-    color: #DAE034;
+    color: #4F3076;
     text-shadow: 0 2px 8px rgba(89, 55, 150, 0.2);
     letter-spacing: 1px;
 }
@@ -59,13 +65,13 @@ body {
     border-radius: 40px;
     padding: 15px 45px 15px 20px;
     font-size: 16px;
-    color: #DAE034;
+    color: #4F3076;
     outline: none;
     transition: border 0.3s, background 0.3s;
 }
 
 .input-box input::placeholder {
-    color: #DAE03499;
+    color: #4F307699;
 }
 
 .input-box input:focus {
@@ -80,7 +86,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     font-size: 22px;
-    color: #DAE03499;
+    color: #4F3076;
     pointer-events: none;
 }
 
@@ -90,7 +96,7 @@ body {
     justify-content: space-between;
     font-size: 14.5px;
     margin: 10px 0 20px;
-    color: #DAE034;
+    color: #4F3076;
 }
 
 .remeber-forgot label input {
@@ -99,7 +105,7 @@ body {
 }
 
 .remeber-forgot a {
-    color: #DAE034;
+    color: #4F3076;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -140,7 +146,7 @@ body {
     font-size: 15px;
     text-align: center;
     margin: 22px 0 10px;
-    color: #DAE034;
+    color: #4F3076;
 }
 
 .register-link p a {
@@ -156,7 +162,7 @@ body {
 }
 
 #reg-message, #login-message {
-    color: #fff200;
+    color: #e63946;
     text-align: center;
     margin-top: 10px;
     min-height: 22px;
@@ -164,12 +170,54 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 900px) {
     .wrapper {
-        width: 95%;
-        padding: 18px 10px;
+        margin: 90px 0 90px 0;
+        width: 98vw;
+        min-width: unset;
     }
-    .wrapper h1 {
-        font-size: 1.5rem;
+    #header, #footer {
+        min-width: 0;
+        max-width: 100vw;
     }
+}
+
+#header {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#footer {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+/* --- Фирменный цвет текста для формы --- */
+.wrapper h1,
+.wrapper label,
+.input-box input,
+.input-box input::placeholder,
+.wrapper .remeber-forgot,
+.wrapper .remeber-forgot a,
+.wrapper .register-link,
+.wrapper .register-link p a {
+    color: #4F3076 !important;
+}
+.input-box i {
+    color: #4F3076 !important;
+}
+#reg-message, #login-message {
+    color: #e63946;
 }

@@ -510,3 +510,61 @@ footer {
     color: #4F3076;
     font-weight: 500;
 }
+
+:root {
+    --primary: #8E3796;
+    --accent: #DAE034;
+    --background: #fff;
+    --text: #4F3076;
+    --section-bg: #f9f6ff;
+    --card-bg: #fff;
+    --input-bg: #fff;
+    --input-border: #8E3796;
+    --btn-bg: #8E3796;
+    --btn-text: #DAE034;
+    --btn-bg-hover: #DAE034;
+    --btn-text-hover: #8E3796;
+}
+body.dark {
+    --primary: #DAE034;
+    --accent: #8E3796;
+    --background: #2a183a;
+    --text: #DAE034;
+    --section-bg: #3a2560;
+    --card-bg: #2a183a;
+    --input-bg: #3a2560;
+    --input-border: #DAE034;
+    --btn-bg: #DAE034;
+    --btn-text: #8E3796;
+    --btn-bg-hover: #8E3796;
+    --btn-text-hover: #DAE034;
+}
+body, html {
+    background: var(--background);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+section, .container, .cards, .card, .product-container {
+    background: var(--section-bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+.card, .cards, .product-container {
+    background: var(--card-bg);
+    color: var(--text);
+}
+input, textarea, select {
+    background: var(--input-bg);
+    color: var(--text);
+    border: 2px solid var(--input-border);
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+button, .btn, .buy-btn, .add-to-cart-btn, .checkout-btn, .review-submit-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    transition: background 0.3s, color 0.3s;
+}
+button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:hover, .review-submit-btn:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
+}
