@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="icon" type="image/png" href="../assets/image/vHu9xligIEg-Photoroom.png">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="footer.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -17,29 +18,7 @@
     <div id="loader">
         <img src="./assets/image/infinite-spinner.svg" alt="">
     </div>
-    <nav>
-        <div class="left-nav">
-            <a href="home.html"><img src="assets/image/vHu9xligIEg-Photoroom.png" alt=""></a>
-        </div>
-        <input type="checkbox" id="menu">
-        <label for="menu" class="ham">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <div class="right-nav">
-            <a href="home.html">О нас</a>
-            <a href="bookpage/index.html">Комиксы и манга</a>
-            <a href="contactpage/contact.html">Контакты</a>
-            <a href="loginform/loginform/index.html">Профиль</a>
-            <a href="./profile/profile.html" class="profile-btn">
-                <i class="bi bi-person-circle"></i>
-            </a>
-            <button id="darkModeToggle" class="dark-mode-btn">
-                <i id="darkModeIcon" class="bi bi-brightness-high"></i>
-            </button>
-        </div>
-    </nav>
+    <script src="header.js"></script>
     
     <header data-aos="fade-up">
         <div data-aos="fade-up">
@@ -69,23 +48,6 @@
         </div>
     </section>
     
-    <section data-aos="fade-up" id="filters">
-        <div class="filters-container">
-            <div class="filter-wrapper">
-                <label for="genre-select">Фильтр по жанрам:</label>
-                <select id="genre-select" class="filter-select">
-                    <option value="all">Все жанры</option>
-                    <option value="marvel">Marvel</option>
-                    <option value="dc">DC</option>
-                    <option value="bubble">Bubble</option>
-                    <option value="star-wars">Звёздные войны</option>
-                    <option value="boys">Пацаны</option>
-                    <option value="phoenix">Феникс</option>
-                </select>
-            </div>
-        </div>
-    </section>
-
     <section data-aos="fade-up" id="new-arrival">
         <div data-aos="fade-up" class="new-arrival-header">
             <div data-aos="fade-up">
@@ -147,30 +109,9 @@
         </div>
     </section>
 
-    <footer>
-        <div class="social">
-            <h3>Наши соц-сети</h3>
-            <a href=""><i class="bi bi-telegram"></i></a>
-            <a href=""><i class="bi bi-Instagram"></i></a>
-            <a href=""><i class="bi bi-envelope"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-twitter"></i></a>
-        </div>
-        <div class="text_foot">
-            <ul>
-                <li><a href="privacy-notice.html">политика конфиденциальности</a></li>
-                <li><a href="terms-of-use.html">Условия использования</a></li>
-                <li><a href="accessibility.html">Доступность</a></li>
-                <li><a href="cookie-preferences.html">Cookie</a></li>
-            </ul>
-        </div>
-        <div class="copyright">
-            <span>©2025, Все права защищены. Для диплома ВШП Тверь</span>
-        </div>
-    </footer>
     <button id="scrollToTopBtn" title="Scroll to Top">⇧</button>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="home.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>

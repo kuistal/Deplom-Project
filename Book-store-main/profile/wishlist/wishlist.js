@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const favBooks = books.filter(b => favoriteIds.includes(b.id.toString()));
     document.getElementById('wishlist-books').innerHTML =
         '<ul style="margin:8px 0 0 0;padding:0;list-style:none;">' +
-        favBooks.map(b => `<li style='margin-bottom:12px;display:flex;align-items:center;'><img src="../../${b.image}" alt="" style="width:40px;height:60px;vertical-align:middle;margin-right:12px;border-radius:4px;box-shadow:0 2px 6px #8E379633;">${b.title}</li>`).join('') +
+        favBooks.map(b => `<li style='margin-bottom:12px;display:flex;align-items:center;'><img src="../../${b.image.startsWith('/') ? b.image.substring(1) : b.image}" alt="" style="width:40px;height:60px;vertical-align:middle;margin-right:12px;border-radius:4px;box-shadow:0 2px 6px #8E379633;">${b.title}</li>`).join('') +
         '</ul>';
 }); 

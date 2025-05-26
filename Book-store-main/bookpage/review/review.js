@@ -14,51 +14,67 @@ window.onload = function () {
     loadReviews();
 };
 
-// Function to add a review
-function addReview() {
+// Получить bookId из localStorage или URL (зависит от вашей логики)
+const bookId = localStorage.getItem('bookId');
+const userId = localStorage.getItem('userId'); // предполагается, что userId есть в localStorage после авторизации
+
+// Загрузка отзывов с сервера
+async function loadReviews() {
+    let reviewsContainer = document.getElementById("reviews");
+    reviewsContainer.innerHTML = "";
+    try {
+        const res = await fetch(`/api/reviews/${bookId}`);
+        const data = await res.json();
+        if (!data.reviews || data.reviews.length === 0) {
+            reviewsContainer.innerHTML = "<p>No reviews yet.</p>";
+            return;
+        }
+        // Показать средний рейтинг
+        reviewsContainer.innerHTML = `<h4>Средний рейтинг: ${data.avg_rating ? data.avg_rating.toFixed(1) : 0} / 5 (${data.review_count})</h4>`;
+        data.reviews.forEach(review => {
+            let div = document.createElement("div");
+            div.classList.add("review-item");
+            div.innerHTML = `
+                <p><strong>${review.username || 'User'}</strong> <span>${getColoredStars(review.rating)}</span> <em>${new Date(review.created_at).toLocaleString()}</em></p>
+                <p>${review.review_text}</p>
+            `;
+            reviewsContainer.appendChild(div);
+        });
+    } catch (e) {
+        reviewsContainer.innerHTML = "<p>Ошибка загрузки отзывов.</p>";
+    }
+}
+
+// Добавить отзыв через сервер
+async function addReview() {
     let reviewText = document.getElementById("reviewText").value.trim();
     let rating = parseInt(document.getElementById("selectedRating").value);
-
     if (reviewText === "" || rating === 0) {
         alert("Please write a review and select a rating before submitting.");
         return;
     }
-
-    let reviews = JSON.parse(localStorage.getItem("bookReviews")) || [];
-
-    reviews.push({
-        text: reviewText,
-        rating: rating
-    });
-
-    localStorage.setItem("bookReviews", JSON.stringify(reviews));
-
-    document.getElementById("reviewText").value = "";
-    document.getElementById("selectedRating").value = "0";
-    loadReviews();
-}
-
-// Function to load reviews
-function loadReviews() {
-    let reviewsContainer = document.getElementById("reviews");
-    reviewsContainer.innerHTML = "";
-
-    let reviews = JSON.parse(localStorage.getItem("bookReviews")) || [];
-
-    if (reviews.length === 0) {
-        reviewsContainer.innerHTML = "<p>No reviews yet.</p>";
-        return;
+    try {
+        const res = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                book_id: bookId,
+                user_id: userId,
+                rating: rating,
+                review_text: reviewText
+            })
+        });
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById("reviewText").value = "";
+            document.getElementById("selectedRating").value = "0";
+            loadReviews();
+        } else {
+            alert("Ошибка при добавлении отзыва");
+        }
+    } catch (e) {
+        alert("Ошибка при добавлении отзыва");
     }
-
-    reviews.forEach(review => {
-        let div = document.createElement("div");
-        div.classList.add("review-item");
-        div.innerHTML = `
-            <p><strong>Rating:</strong> ${getColoredStars(review.rating)}</p>
-            <p>${review.text}</p>
-        `;
-        reviewsContainer.appendChild(div);
-    });
 }
 
 // Function to generate stars with colors

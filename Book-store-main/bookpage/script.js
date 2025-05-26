@@ -3,6 +3,7 @@ async function fetchBooks() {
         const response = await fetch('http://localhost:3001/api/books');
         if (!response.ok) throw new Error('Не удалось загрузить книги');
         const books = await response.json();
+        console.log('Fetched books:', books); // Отладочный вывод
         return books;
     } catch (error) {
         console.error('Ошибка:', error);
@@ -41,27 +42,38 @@ async function toggleFavorite(bookId, btn) {
 }
 
 async function displayBooks(books) {
-    userFavorites = await getUserFavorites();
     const container = document.getElementById('book-cards');
     container.innerHTML = '';
+    
+    if (!books || books.length === 0) {
+        container.innerHTML = '<p class="no-books">Книги не найдены</p>';
+        return;
+    }
+
+    // Get user favorites at the start
+    userFavorites = await getUserFavorites();
+
     books.forEach(book => {
         const bookCard = document.createElement('div');
         bookCard.className = 'card1';
         
-        // Вычисляем старую цену (на 30% больше текущей) и процент скидки
         const oldPrice = (book.price * 1.3).toFixed(0);
         const discount = 30;
 
-        let imgSrc = '';
-        if (book.image && book.image !== 'undefined' && book.image !== '') {
-            imgSrc = book.image.startsWith('.') ? book.image.substring(1) : book.image;
-            if (imgSrc.startsWith('/')) imgSrc = imgSrc.substring(1);
-        } else {
-            imgSrc = 'bookpage/placeholder.jpg';
-        }
+        // Fix image path handling
+        let imgSrc = book.image ? book.image.replace(/^.*bookimages[\\/]/, '/bookimages/') : '/bookpage/placeholder.jpg';
+        
+        // Create favorite button
+        const favBtn = document.createElement('button');
+        favBtn.className = `fav-btn${userFavorites.includes(book.id) ? ' fav-active' : ''}`;
+        favBtn.innerHTML = '<i class="bi bi-heart-fill"></i>';
+        favBtn.onclick = (e) => {
+            e.stopPropagation();
+            toggleFavorite(book.id, favBtn);
+        };
 
         bookCard.innerHTML = `
-            <img src="../${imgSrc}" alt="${book.title}" onerror="this.src='../bookpage/placeholder.jpg';">
+            <img src="${imgSrc}" alt="${book.title}" onerror="this.src='/bookpage/placeholder.jpg';" class="card-image">
             <div class="price-section">
                 <span class="old-price">₽ ${oldPrice}</span>
                 <span class="new-price">₽ ${book.price}</span>
@@ -76,9 +88,14 @@ async function displayBooks(books) {
                 <a href="../cartpage/cart.html">Купить</a>
             </div>
         `;
+
+        // Add favorite button to the card
+        bookCard.insertBefore(favBtn, bookCard.firstChild);
         container.appendChild(bookCard);
 
         bookCard.addEventListener('click', function() {
+            console.log('goToProductPage image:', imgSrc);
+            localStorage.setItem('productType', 'book');
             goToProductPage(book.id, imgSrc, book.title, book.author, book.price, oldPrice, discount, book.description || 'Описание отсутствует');
             window.location.href = '../product/product.html';
         });
@@ -120,44 +137,52 @@ function goToProductPage(id, image, title, author, price, oldPrice, discount, de
 }
 
 async function populateGenres() {
-    const books = await fetchBooks();
     const genreSelect = document.getElementById('genre');
-    const genres = new Set();
-    books.forEach(book => {
-        if (book.genres) {
-            book.genres.split(',').forEach(genre => genres.add(genre.trim()));
-        }
-    });
+    const genres = [
+        { value: '', label: 'Все жанры' },
+        { value: 'comics', label: 'Comics' },
+        { value: 'manga', label: 'Manga' },
+        { value: 'супергерой', label: 'Супергерой' },
+        { value: 'экшен', label: 'Экшен' },
+        { value: 'триллер', label: 'Триллер' },
+        { value: 'детектив', label: 'Детектив' },
+        { value: 'ужасы', label: 'Ужасы' },
+        { value: 'боевик', label: 'Боевик' },
+        { value: 'сёнэн', label: 'Сёнэн' },
+        { value: 'приключение', label: 'Приключение' },
+        { value: 'фантастика', label: 'Фантастика' }
+    ];
+
+    // Очищаем текущие опции
+    genreSelect.innerHTML = '';
+
+    // Добавляем новые опции
     genres.forEach(genre => {
         const option = document.createElement('option');
-        option.value = genre;
-        option.textContent = genre;
+        option.value = genre.value;
+        option.textContent = genre.label;
         genreSelect.appendChild(option);
     });
 }
 
 async function filterBooks() {
-    const genre = document.getElementById('genre').value;
+    const genre = document.getElementById('genre').value.toLowerCase();
+    console.log('Selected genre:', genre);
+    
     const books = await fetchBooks();
-    const filteredBooks = genre
-        ? books.filter(book => (book.genres || '').split(',').map(g => g.trim()).includes(genre))
-        : books;
+    console.log('Books before filtering:', books);
+    
+    const filteredBooks = genre === ''
+        ? books
+        : books.filter(book => {
+            let genresArr = Array.isArray(book.genres) ? book.genres : (book.genres ? book.genres.split(',') : []);
+            const bookGenres = genresArr.map(g => g.trim().toLowerCase());
+            return bookGenres.includes(genre);
+        });
+    
+    console.log('Filtered books:', filteredBooks);
     displayBooks(filteredBooks);
 }
-
-// Dark mode toggle functionality
-const darkModeToggle = document.getElementById('darkModeToggle');
-const darkModeIcon = document.getElementById('darkModeIcon');
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        darkModeIcon.classList.remove('bi-brightness-high');
-        darkModeIcon.classList.add('bi-moon');
-    } else {
-        darkModeIcon.classList.remove('bi-moon');
-        darkModeIcon.classList.add('bi-brightness-high');
-    }
-});
 
 // Function to handle review page navigation
 function goToReviewPage(bookImage, bookTitle, bookAuthor) {

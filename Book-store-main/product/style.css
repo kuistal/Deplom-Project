@@ -1,31 +1,29 @@
 /* Product Page Styles */
 .product-container {
     display: flex;
-    max-width: 1000px;
-    margin: 120px auto 40px;
-    padding: 20px;
-    gap: 30px;
     flex-wrap: wrap;
-    justify-content: center;
+    gap: 40px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px;
+    margin: 32px auto;
+    max-width: 1100px;
+    margin-top: 120px;
 }
 
 .product-image img {
-    width: 100%;
-    max-width: 350px;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    max-width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
 .product-details {
     flex: 1;
-    min-width: 300px;
-    padding: 20px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .product-details h1 {
@@ -34,6 +32,7 @@
     color: #4F3076;
     margin-bottom: 10px;
     text-transform: uppercase;
+    text-align: left;
 }
 
 .product-details .author {
@@ -41,6 +40,7 @@
     font-weight: 400;
     color: #666;
     margin-bottom: 15px;
+    text-align: left;
 }
 
 .product-details .price-section {
@@ -76,6 +76,7 @@
     color: #666;
     line-height: 1.6;
     margin-bottom: 30px;
+    text-align: left;
 }
 
 .product-actions {
@@ -86,46 +87,27 @@
 
 .product-actions .buy-btn,
 .product-actions .add-to-cart-btn,
-.product-actions .go-to-cart-btn {
-    padding: 10px 30px;
+.product-actions .go-to-cart-btn,
+.review-submit-btn {
+    background: #8E3796;
+    color: #fff;
+    border: none;
     border-radius: 20px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: background 0.2s, transform 0.2s;
     font-weight: 500;
     letter-spacing: 0.5px;
-    border: none;
     text-align: center;
     font-size: 1rem;
     cursor: pointer;
+    padding: 10px 30px;
 }
 
-.product-actions .buy-btn {
-    background: #1E90FF;
-    color: #FFFFFF;
-}
-
-.product-actions .buy-btn:hover {
-    background: #1C86EE;
-    transform: scale(1.05);
-}
-
-.product-actions .add-to-cart-btn {
-    background: #8E3796;
-    color: #FFFFFF;
-}
-
-.product-actions .add-to-cart-btn:hover {
-    background: #593796;
-    transform: scale(1.05);
-}
-
-.product-actions .go-to-cart-btn {
+.product-actions .buy-btn:hover,
+.product-actions .add-to-cart-btn:hover,
+.product-actions .go-to-cart-btn:hover,
+.review-submit-btn:hover {
     background: #4F3076;
-    color: #DAE034;
-}
-
-.product-actions .go-to-cart-btn:hover {
-    background: #593796;
     transform: scale(1.05);
 }
 
@@ -249,217 +231,6 @@
         width: 100%;
         max-width: 200px;
     }
-}
-
-/* Navigation (Header) Styles */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: #593796;
-    height: 90px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-family: sans-serif;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.left-nav img {
-    height: 50px;
-}
-
-.right-nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.right-nav a {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: bold;
-    color: #DAE034;
-    text-decoration: none;
-    padding: 10px;
-    position: relative;
-    font-size: 20px;
-    transition: all 0.3s ease-in-out;
-}
-
-.right-nav a::after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 100%;
-    height: 2px;
-    background: #8E3796;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out;
-}
-
-.right-nav a:hover::after {
-    transform: scaleX(1);
-}
-
-.right-nav a:hover {
-    color: #8E3796;
-    text-shadow: 0px 0px 5px rgba(142, 55, 150, 0.7);
-}
-
-.profile-btn i {
-    font-size: 1.5rem;
-    color: #DAE034;
-    transition: all 0.3s ease;
-}
-
-.profile-btn:hover i {
-    color: #8E3796;
-}
-
-.dark-mode-btn {
-    margin-left: 1rem;
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    border: none;
-    background-color: #593796;
-    color: #DAE034;
-    cursor: pointer;
-}
-
-.dark-mode-btn i {
-    font-size: 1.5rem;
-    color: #DAE034;
-    transition: all 0.3s ease;
-}
-
-.dark-mode-btn:hover i {
-    color: #8E3796;
-}
-
-.ham {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
-
-#menu {
-    display: none;
-}
-
-.ham span {
-    display: block;
-    width: 35px;
-    height: 4px;
-    background-color: #DAE034;
-    border-radius: 2px;
-    transition: 0.3s;
-}
-
-@media screen and (max-width: 851px) {
-    .right-nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 85px;
-        left: 0;
-        width: 100%;
-        background: #4F3076;
-        box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-        border-radius: 5px;
-        text-align: center;
-        z-index: 100;
-        border-top: 2px solid #8E3796;
-    }
-
-    .right-nav a {
-        display: block;
-        padding: 15px;
-        text-decoration: none;
-        color: #DAE034;
-        position: relative;
-    }
-
-    .right-nav a:hover {
-        color: #DAE034;
-        transform: scale(1.05);
-        text-decoration: none;
-    }
-
-    .right-nav a::after {
-        content: " ";
-        position: absolute;
-        left: 0;
-        bottom: -3px;
-        width: 100%;
-        height: 2px;
-        background: #8E3796;
-        transform: scaleX(0);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .right-nav a:hover::after {
-        transform: scaleX(1);
-    }
-
-    .ham {
-        display: flex;
-    }
-
-    #menu:checked ~ .right-nav {
-        display: flex;
-        align-items: center;
-    }
-
-    #menu:checked ~ .ham span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    #menu:checked ~ .ham span:nth-child(2) {
-        opacity: 0;
-    }
-
-    #menu:checked ~ .ham span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
-    }
-}
-
-@media (max-width: 675px) {
-    .right-nav {
-        max-width: 100%;
-    }
-}
-
-/* Dark Mode for Header */
-.dark-mode nav {
-    background: #4F3076;
-}
-
-.dark-mode .right-nav a {
-    color: #DAE034;
-}
-
-.dark-mode .right-nav a:hover {
-    color: #8E3796;
-}
-
-.dark-mode .profile-btn i,
-.dark-mode .dark-mode-btn i {
-    color: #DAE034;
-}
-
-.dark-mode .profile-btn:hover i,
-.dark-mode .dark-mode-btn:hover i {
-    color: #8E3796;
-}
-
-.dark-mode .ham span {
-    background-color: #DAE034;
 }
 
 /* Footer Styles */
@@ -592,32 +363,150 @@ footer {
 
 }
 
-.fav-btn {
+.product-image {
+    position: relative;
+}
+
+.fav-btn.abs-fav-btn {
+    position: static;
+    margin: 0 0 0 8px;
     background: #fff;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: #8E3796;
     cursor: pointer;
-    transition: color 0.2s, background 0.2s;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
     border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 8px #8E379622;
-    margin-left: 12px;
-}
-.fav-btn.fav-active {
-    color: #DAE034;
-    background: #8E3796;
-    box-shadow: 0 2px 8px #DAE03444;
 }
 
-.abs-fav-btn {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    z-index: 2;
-    margin: 0;
+.fav-btn.abs-fav-btn.fav-active {
+    color: #fff;
+    background: #8E3796;
+    box-shadow: 0 2px 12px #DAE03444;
+}
+
+.fav-btn.abs-fav-btn:hover {
+    color: #fff;
+    background: #4F3076;
+}
+
+/* --- Улучшенный дизайн отзывов и рейтинга --- */
+.rating-review-section {
+    margin-top: 32px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(79,48,118,0.07);
+    padding: 32px 22px 24px 22px;
+    transition: box-shadow 0.2s;
+}
+.rating-summary {
+    font-size: 1.25em;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #4F3076;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.reviews-list {
+    margin-bottom: 22px;
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: left;
+}
+.review-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(142,55,150,0.07);
+    padding: 14px 18px 12px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    animation: fadeIn 0.5s;
+    text-align: left;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.review-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8E3796 60%, #DAE034 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1em;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px #8E379622;
+}
+.review-content {
+    flex: 1;
+    text-align: left;
+}
+.review-item strong {
+    color: #4F3076;
+    font-size: 1.08em;
+}
+.review-item em {
+    color: #888;
+    font-size: 0.97em;
+    margin-left: 8px;
+}
+.review-rating-stars {
+    margin-left: 6px;
+    vertical-align: middle;
+}
+.review-form h4 {
+    margin-bottom: 8px;
+    color: #4F3076;
+}
+.review-form textarea {
+    width: 100%;
+    min-height: 60px;
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 1em;
+    resize: vertical;
+    background: #fff;
+    transition: border 0.2s;
+}
+.review-form textarea:focus {
+    border: 1.5px solid #8E3796;
+    outline: none;
+}
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.rating-container .star {
+    font-size: 1.7em;
+    cursor: pointer;
+    transition: transform 0.15s, color 0.2s;
+}
+.rating-container .star:hover {
+    transform: scale(1.2);
+    color: #DAE034 !important;
+}
+#product-rating-output {
+    margin-left: 10px;
+    color: #4F3076;
+    font-weight: 500;
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Книги</title>
+    <title>Мерч</title>
     <link rel="icon" type="image/png" href="../assets/image/vHu9xligIEg-Photoroom.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../scrolltotop/scroll-to-top.css">
@@ -13,34 +13,25 @@
 </head>
 <body>
     <script src="../header.js"></script>
-    <div class="content">
-        <img src="foonXL.png" alt="">
-        <div class="text">
-            <h2>Добро пожаловать в магазин комиксов Geeky's</h2>
-        </div>
-        <div class="button">
-            <a href="#coll">Смотреть</a>
-        </div>
-    </div>
     <div class="container">
         <div class="collection-tabs" style="display: flex; justify-content: center; gap: 32px; margin-bottom: 24px;">
-            <a href="index.html" class="tab-link active">Коллекция</a>
-            <a href="merch.html" class="tab-link">МЕРЧ</a>
+            <a href="index.html" class="tab-link">Коллекция</a>
+            <a href="merch.html" class="tab-link active">МЕРЧ</a>
         </div>
         <div class="filter">
-            <label for="genre">Фильтр по жанрам: </label>
-            <select id="genre" onchange="filterBooks()">
-                <option value="">Все жанры </option>
-                <!-- Genres will be populated dynamically -->
+            <label for="merch-type">Фильтр по типу: </label>
+            <select id="merch-type" onchange="filterMerch()">
+                <option value="">Все типы</option>
+                <!-- Типы будут добавлены динамически -->
             </select>
         </div>
-        <div class="cards" id="book-cards">
-            <!-- Books will be populated dynamically -->
+        <div class="cards" id="merch-cards">
+            <!-- Мерч будет добавлен динамически -->
         </div>
     </div>
     <button id="scrollToTopBtn" title="Scroll to Top">⇧</button>
-    <script src="script.js"></script>
     <script src="../scrolltotop/scroll-to-top.js"></script>
     <script src="../footer.js"></script>
+    <script src="merch.js"></script>
 </body>
-</html>
+</html> 

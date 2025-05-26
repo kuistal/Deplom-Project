@@ -192,68 +192,102 @@ body.dark #about {
 
 /* Navigation */
 nav {
+    width: 100%;
+    background: #4F3076;
+    color: #DAE034;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    background: #593796; /* Navigation and cards */
-    height: 90px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-family: sans-serif;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-.left-nav img {
-    height: 50px;
-}
-.right-nav a {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: bold;
-    color: #DAE034; /* Text on dark background */
-    text-decoration: none;
-    padding: 10px;
+    justify-content: space-between;
+    padding: 18px 32px 18px 32px;
+    box-sizing: border-box;
     position: relative;
-    font-size: 20px;
-    transition: all 0.3s ease-in-out;
+    z-index: 100;
+    min-height: 70px;
 }
-.right-nav a::after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 100%;
-    height: 2px;
-    background: #8E3796; /* Hover/buttons */
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out;
+nav .left-nav img {
+    height: 54px;
+    width: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #8E379622;
 }
-.right-nav a:hover::after {
-    transform: scaleX(1);
+nav .right-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
-.right-nav a:hover {
-    color: #8E3796; /* Hover/buttons */
-    text-shadow: 0px 0px 5px rgba(142, 55, 150, 0.7);
+nav .right-nav a, nav .right-nav button {
+    color: #DAE034;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin: 0 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+nav .right-nav a:hover, nav .right-nav button:hover {
+    background: #8E3796;
+    color: #fff;
+}
+nav .profile-btn {
+    background: #593796;
+    color: #DAE034;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+nav .profile-btn:hover {
+    background: #DAE034;
+    color: #4F3076;
+}
+nav .dark-mode-btn {
+    background: #DAE034;
+    color: #4F3076;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+nav .dark-mode-btn:hover {
+    background: #8E3796;
+    color: #fff;
 }
 .ham {
     display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
 }
-#menu {
-    display: none;
-}
-.ham span {
-    display: block;
-    width: 35px;
-    height: 4px;
-    background-color: #DAE034; /* Text on dark background */
-    border-radius: 2px;
-    transition: 0.3s;
-    left: 90px;
+@media (max-width: 900px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 8px;
+    }
+    nav .right-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+    nav .left-nav img {
+        height: 40px;
+    }
 }
 
 /* Header */
@@ -585,11 +619,13 @@ footer.dark {
 .container {
     position: relative;
 }
+/*
 .container img {
     width: 100%;
     height: 590px;
     z-index: -1;
 }
+*/
 .text {
     position: absolute;
     color: #4F3076; /* Text on white background */
