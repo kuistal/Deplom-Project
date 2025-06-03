@@ -12,18 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const darkModeToggle = document.getElementById('darkModeToggle');
     const darkModeIcon = document.getElementById('darkModeIcon');
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            darkModeIcon.classList.remove('bi-brightness-high');
-            darkModeIcon.classList.add('bi-moon');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            darkModeIcon.classList.remove('bi-moon');
-            darkModeIcon.classList.add('bi-brightness-high');
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    });
+    if (darkModeToggle && darkModeIcon) {
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeIcon.classList.remove('bi-brightness-high');
+                darkModeIcon.classList.add('bi-moon');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeIcon.classList.remove('bi-moon');
+                darkModeIcon.classList.add('bi-brightness-high');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    }
 
     // Функция для отображения товаров в корзине
     function displayCart() {
@@ -47,8 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
             let imgSrc = item.image;
-            if (!/^https?:\/\//.test(imgSrc) && !imgSrc.startsWith('../')) {
-                imgSrc = '../' + imgSrc;
+            if (
+                !/^https?:\/\//.test(imgSrc) &&
+                !imgSrc.startsWith('../') &&
+                !imgSrc.startsWith('assets/') &&
+                !imgSrc.startsWith('/assets/') &&
+                !imgSrc.startsWith('/bookimages/') &&
+                !imgSrc.startsWith('/')
+            ) {
+                imgSrc = '../assets/image/' + imgSrc;
             }
             cartItem.innerHTML = `
                 <img src="${imgSrc}" alt="${item.title}" onerror="this.src='../bookpage/placeholder.jpg';">
@@ -67,24 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
         cartTotalElement.textContent = `₽ ${total}`;
     }
 
-    // Удаление товара из корзины
+    // ВЫЗЫВАЕМ отображение корзины при загрузке страницы!
+    displayCart();
+
+    checkoutButton.addEventListener('click', () => {
+        window.location.href = 'checkout.html';
+    });
+
     cartItemsContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove-btn')) {
             const id = e.target.getAttribute('data-id');
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart = cart.filter(item => item.id !== id);
+            cart = cart.filter(item => String(item.id) !== String(id));
             localStorage.setItem('cart', JSON.stringify(cart));
             displayCart();
         }
     });
-
-    // Оформление заказа
-    checkoutButton.addEventListener('click', () => {
-        localStorage.removeItem('cart');
-        displayCart();
-        alert('Заказ оформлен! Спасибо за покупку!');
-    });
-
-    // Первоначальное отображение корзины
-    displayCart();
 });

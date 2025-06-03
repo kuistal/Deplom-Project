@@ -6,6 +6,7 @@ const sections = {
     products: document.getElementById('products-section'),
     reviews: document.getElementById('reviews-section'),
     'add-product': document.getElementById('add-product-section'),
+    orders: document.getElementById('orders-section'),
 };
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -27,6 +28,9 @@ navLinks.forEach(link => {
         if (link.dataset.section === 'add-product') {
             renderAddProductForm();
         }
+        if (link.dataset.section === 'orders') {
+            loadAdminOrders();
+        }
     });
 });
 
@@ -46,6 +50,26 @@ async function loadStats() {
     }
 }
 loadStats();
+loadSalesStats();
+
+// === Загрузка и отображение статистики продаж ===
+async function loadSalesStats() {
+    try {
+        const res = await fetch('/api/admin/orders');
+        if (!res.ok) throw new Error('Ошибка загрузки заказов');
+        const orders = await res.json();
+        console.log('DEBUG: orders for sales stats', orders); // временный вывод для отладки
+        let totalSales = 0;
+        for (const o of orders) {
+            totalSales += o.items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        }
+        const statSales = document.getElementById('stat-sales');
+        if (statSales) statSales.textContent = totalSales;
+    } catch (e) {
+        const statSales = document.getElementById('stat-sales');
+        if (statSales) statSales.textContent = '?';
+    }
+}
 
 // Загрузка и отображение пользователей
 async function loadUsers() {
@@ -370,6 +394,41 @@ function renderAddProductForm() {
             msg.textContent = 'Ошибка добавления товара';
         }
     };
+}
+
+// === Загрузка и отображение заказов (админка) ===
+async function loadAdminOrders() {
+    const ordersSection = document.getElementById('orders-section');
+    ordersSection.innerHTML = '<div class="admin-loading">Загрузка...</div>';
+    try {
+        const res = await fetch('/api/admin/orders');
+        if (!res.ok) throw new Error('Ошибка загрузки заказов');
+        const orders = await res.json();
+        if (!orders.length) {
+            ordersSection.innerHTML = '<p>Нет заказов.</p>';
+            return;
+        }
+        let html = `<table class="admin-table"><thead><tr><th>ID</th><th>Пользователь</th><th>Email</th><th>Дата</th><th>Адрес</th><th>Сумма</th><th>Товары</th></tr></thead><tbody>`;
+        for (const o of orders) {
+            const address = `${o.city || ''}, ${o.street || ''}, д.${o.house || ''}${o.apartment ? ', кв.' + o.apartment : ''}, ${o.postal_code || ''}`;
+            html += `<tr><td>${o.id}</td><td>${o.name || o.username || 'user#'+o.user_id}</td><td>${o.email || ''}</td><td>${new Date(o.created_at).toLocaleString()}</td><td>${address}</td><td>₽${o.total}</td><td>`;
+            html += `<div class='admin-order-items-list'>`;
+            html += o.items.map(item => `
+                <div class='admin-order-item-row'>
+                    <img src='${item.image}' alt='' >
+                    <span>${item.title}</span>
+                    <span style='font-size:0.95em;color:#888;'>(${item.product_type === 'book' ? 'Книга' : 'Мерч'})</span>
+                    <span>₽${item.price} × ${item.quantity}</span>
+                </div>
+            `).join('');
+            html += `</div>`;
+            html += `</td></tr>`;
+        }
+        html += '</tbody></table>';
+        ordersSection.innerHTML = html;
+    } catch (e) {
+        ordersSection.innerHTML = '<div class="admin-error">Ошибка загрузки заказов</div>';
+    }
 }
 
 document.getElementById('toShopBtn').onclick = function() {

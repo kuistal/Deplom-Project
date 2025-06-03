@@ -54,7 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для добавления товара в корзину
     const addToCart = () => {
         const product = {
-            id: `${title}-${author}`, // Уникальный идентификатор на основе названия и автора
+            id: `${title}-${author}`,
+            product_id: productId,
+            product_type: localStorage.getItem('productType') || 'book',
             image: image,
             title: title,
             author: author,

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../home.css">
+    <style>
+        .checkout-flex {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .address-block, .card-block {
+            background: #f9f6ff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(142, 55, 150, 0.10);
+            padding: 32px 28px 24px 28px;
+            min-width: 320px;
+            max-width: 400px;
+            flex: 1 1 320px;
+        }
+        .address-block h2, .card-block h2 {
+            color: #8E3796;
+            margin-bottom: 18px;
+            font-size: 1.3em;
+        }
+        .address-block input, .card-block input {
+            width: 100%;
+            margin-bottom: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1.5px solid #8E3796;
+            font-size: 1em;
+            background: #fff;
+            color: #4F3076;
+            transition: border 0.2s;
+        }
+        .address-block input:focus, .card-block input:focus {
+            border: 1.5px solid #DAE034;
+            outline: none;
+        }
+        .card-visual {
+            width: 340px;
+            height: 200px;
+            background: linear-gradient(135deg, #8E3796 60%, #DAE034 100%);
+            border-radius: 18px;
+            margin: 0 auto 24px auto;
+            box-shadow: 0 4px 24px rgba(142, 55, 150, 0.18);
+            position: relative;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px 28px 24px 28px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .card-visual .chip {
+            width: 48px;
+            height: 32px;
+            background: #fff8;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+        .card-visual .card-number {
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .card-visual .card-name {
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-visual .card-expiry {
+            font-size: 0.95em;
+            position: absolute;
+            right: 28px;
+            bottom: 24px;
+        }
+        @media (max-width: 900px) {
+            .checkout-flex { flex-direction: column; gap: 24px; }
+            .card-visual { width: 100%; min-width: 0; }
+        }
+        .checkout-btn {
+            background: linear-gradient(90deg, #8E3796 60%, #DAE034 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 38px;
+            font-size: 1.18em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #8E379633;
+            transition: background 0.22s, color 0.22s, transform 0.16s;
+            outline: none;
+            margin-top: 12px;
+            letter-spacing: 1px;
+        }
+        .checkout-btn:hover, .checkout-btn:focus {
+            background: linear-gradient(90deg, #DAE034 60%, #8E3796 100%);
+            color: #4F3076;
+            transform: translateY(-2px) scale(1.04);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div id="header-include"></div>
+    <script>
+    fetch('../header.html').then(r=>r.text()).then(t=>{
+        document.getElementById('header-include').outerHTML = t;
+    });
+    </script>
+    <div class="cart-container" style="margin-top:120px;">
+        <h1 style="text-align:center;">Оформление заказа</h1>
+        <form id="checkout-form">
+            <div class="checkout-flex">
+                <div class="address-block">
+                    <h2>Данные для доставки</h2>
+                    <input type="text" name="city" placeholder="Город" required>
+                    <input type="text" name="street" placeholder="Улица" required>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" name="house" placeholder="Дом" required style="flex:1;">
+                        <input type="text" name="apartment" placeholder="Квартира" required style="flex:1;">
+                    </div>
+                    <input type="text" name="postal_code" placeholder="Почтовый индекс" required>
+                </div>
+                <div class="card-block">
+                    <h2>Банковская карта</h2>
+                    <div class="card-visual" id="card-visual">
+                        <div class="chip"></div>
+                        <div class="card-number" id="card-number-preview">0000 0000 0000 0000</div>
+                        <div class="card-name" id="card-name-preview">ИМЯ ВЛАДЕЛЬЦА</div>
+                        <div class="card-expiry" id="card-expiry-preview">00/00</div>
+                    </div>
+                    <input type="text" name="card_number" id="card_number" placeholder="Номер карты" maxlength="19" required>
+                    <input type="text" name="card_name" id="card_name" placeholder="Имя на карте" required>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" name="card_expiry" id="card_expiry" placeholder="MM/YY" maxlength="5" required style="flex:1;">
+                        <input type="text" name="card_cvv" placeholder="CVV" maxlength="4" required style="flex:1;">
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:32px;">
+                <button type="submit" class="checkout-btn">Подтвердить заказ</button>
+            </div>
+        </form>
+        <div id="checkout-success" style="display:none;">
+            <h2>Заказ оформлен!</h2>
+            <p>Спасибо за покупку. Мы свяжемся с вами для подтверждения доставки.</p>
+        </div>
+    </div>
+    <script src="checkout.js"></script>
+    <script src="../footer.js"></script>
+    <script>
+    // Визуализация банковской карты
+    document.addEventListener('DOMContentLoaded', function() {
+        const num = document.getElementById('card_number');
+        const name = document.getElementById('card_name');
+        const expiry = document.getElementById('card_expiry');
+        const numPrev = document.getElementById('card-number-preview');
+        const namePrev = document.getElementById('card-name-preview');
+        const expiryPrev = document.getElementById('card-expiry-preview');
+        if(num) num.addEventListener('input', e => {
+            let val = e.target.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+            numPrev.textContent = val.padEnd(19, '0');
+        });
+        if(name) name.addEventListener('input', e => {
+            namePrev.textContent = e.target.value.toUpperCase() || 'ИМЯ ВЛАДЕЛЬЦА';
+        });
+        if(expiry) expiry.addEventListener('input', e => {
+            let val = e.target.value.replace(/[^\d/]/g, '').replace(/(\d{2})(\d{0,2})/, (m, m1, m2) => m2 ? m1 + '/' + m2 : m1);
+            expiryPrev.textContent = val.padEnd(5, '0');
+        });
+    });
+    </script>
+</body>
+</html> 

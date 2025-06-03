@@ -85,7 +85,7 @@ async function displayBooks(books) {
             </p>
             <div class="description-short" style="font-size:0.95em;color:#555;margin:8px 0 0 0;min-height:40px;">${book.description ? book.description.substring(0, 100) + (book.description.length > 100 ? '...' : '') : ''}</div>
             <div class="sec">
-                <a href="../cartpage/cart.html">Купить</a>
+                <a href="#" class="buy-book">Купить</a>
             </div>
         `;
 
@@ -101,7 +101,8 @@ async function displayBooks(books) {
         });
 
         // Добавляю обработчик для кнопки 'Купить'
-        bookCard.querySelector('.sec a').addEventListener('click', function(e) {
+        bookCard.querySelector('.buy-book').addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
             // Добавить товар в корзину
             const product = {

@@ -88,6 +88,7 @@ async function displayMerch(merchList) {
         });
         // Добавление в корзину
         card.querySelector('.buy-merch').addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
             const product = {
                 id: `${item.title}`,

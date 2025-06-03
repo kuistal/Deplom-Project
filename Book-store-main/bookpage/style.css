@@ -515,6 +515,12 @@ footer.dark {
 .copyright.dark {
     color: var(--accent);
 }
+body.dark .filter,
+body.dark .filter label,
+body.dark .filter select,
+body.dark .filter select option {
+    color: #DAE034 !important;
+}
 
 /* Responsive Styles */
 @media screen and (max-width: 851px) {
@@ -714,4 +720,74 @@ button, .btn, .buy-btn, .add-to-cart-btn, .checkout-btn {
 button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:hover {
     background: var(--btn-bg-hover);
     color: var(--btn-text-hover);
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+    background: var(--section-bg);
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #8E379610;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.filter label {
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    letter-spacing: 0.5px;
+}
+.filter select {
+    padding: 0.5rem 1.2rem;
+    border: 2px solid var(--primary);
+    border-radius: 7px;
+    background: var(--input-bg);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 180px;
+    transition: border 0.2s, background 0.2s, color 0.2s;
+    box-shadow: 0 1px 6px #8E379610;
+}
+.filter select:hover, .filter select:focus {
+    border-color: var(--accent);
+    background: var(--section-bg);
+}
+body.dark .filter {
+    background: var(--card-bg);
+    box-shadow: 0 2px 12px #DAE03410;
+}
+body.dark .filter label {
+    color: var(--accent);
+}
+body.dark .filter select {
+    background: var(--input-bg);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+body.dark .filter select option {
+    background: var(--input-bg);
+    color: var(--accent);
+}
+@media (max-width: 600px) {
+    .filter {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 0.8rem 0.7rem;
+    }
+    .filter label {
+        margin-bottom: 0.3rem;
+    }
+    .filter select {
+        width: 100%;
+        min-width: unset;
+    }
 }

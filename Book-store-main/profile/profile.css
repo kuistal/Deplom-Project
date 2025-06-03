@@ -48,9 +48,17 @@ body, html {
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .sidebar li {
-    margin: 15px 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    color: inherit !important;
 }
 .sidebar a {
     color: var(--accent);
@@ -164,4 +172,30 @@ body, html {
 .wishlist-remove-btn:hover {
     background: var(--primary);
     color: var(--accent);
+}
+.sidebar-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    background: #4F3076;
+    color: #DAE034;
+    border: none;
+    border-radius: 12px;
+    padding: 18px 28px;
+    font-size: 1.18em;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.22s, color 0.22s, transform 0.16s;
+    outline: none;
+}
+.sidebar-btn:hover, .sidebar-btn:focus {
+    background: #DAE034;
+    color: #4F3076;
+    transform: translateY(-2px) scale(1.04);
+}
+.sidebar-btn:hover i, .sidebar-btn:focus i {
+    color: #4F3076;
 }

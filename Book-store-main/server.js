@@ -366,7 +366,119 @@ app.get('/api/products/:type/:id/similar', async (req, res) => {
     }
 });
 
+// Получить историю заказов пользователя
+app.get('/api/orders/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const connection = await mysql.createConnection(dbConfig);
+    // Получаем заказы пользователя
+    const [orders] = await connection.execute(
+        'SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC', [userId]
+    );
+    // Для каждого заказа получаем товары
+    for (let order of orders) {
+        const [items] = await connection.execute(
+            'SELECT * FROM order_items WHERE order_id = ?', [order.id]
+        );
+        // Для каждого товара подгружаем инфу о книге или мерче
+        for (let item of items) {
+            if (item.product_type === 'book') {
+                const [book] = await connection.execute('SELECT title, image FROM books WHERE id = ?', [item.product_id]);
+                item.title = book[0]?.title || '';
+                item.image = book[0]?.image || '';
+            } else {
+                const [merch] = await connection.execute('SELECT title, image FROM merch WHERE id = ?', [item.product_id]);
+                item.title = merch[0]?.title || '';
+                item.image = merch[0]?.image || '';
+            }
+        }
+        order.items = items;
+    }
+    await connection.end();
+    res.json(orders);
+});
+
+// Оформление заказа
+app.post('/api/orders', async (req, res) => {
+    const { user_id, address, items } = req.body;
+    if (!user_id || !address || !items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: 'Некорректные данные заказа' });
+    }
+    const connection = await mysql.createConnection(dbConfig);
+    try {
+        // Считаем сумму заказа
+        const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        // Вставляем заказ
+        const [orderResult] = await connection.execute(
+            'INSERT INTO orders (user_id, total, city, street, house, apartment, postal_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
+            [user_id, total, address.city, address.street, address.house, address.apartment, address.postal_code]
+        );
+        const orderId = orderResult.insertId;
+        // Логируем приходящие товары
+        console.log('Order items:', items);
+        // Вставляем товары заказа
+        for (const item of items) {
+            const productId = Number(item.product_id) || Number(item.id);
+            const productType = item.product_type || item.type || 'book';
+            const price = Number(item.price) || 0;
+            const quantity = Number(item.quantity) || 1;
+            if (!productId || !productType || !price || !quantity) {
+                console.error('Invalid item for order_items:', item);
+                continue;
+            }
+            console.log('Inserting item:', { productId, productType, price, quantity });
+            await connection.execute(
+                'INSERT INTO order_items (order_id, product_id, product_type, price, quantity) VALUES (?, ?, ?, ?, ?)',
+                [orderId, productId, productType, price, quantity]
+            );
+        }
+        await connection.end();
+        res.status(201).json({ success: true, orderId });
+    } catch (e) {
+        console.error('Order error:', e, { user_id, address, items });
+        await connection.end();
+        res.status(500).json({ error: 'Ошибка оформления заказа' });
+    }
+});
+
+// === Получить все заказы с деталями для админки ===
+app.get('/api/admin/orders', async (req, res) => {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        // Получаем все заказы с пользователем
+        const [orders] = await connection.execute(`
+            SELECT o.*, u.username, u.name, u.email
+            FROM orders o
+            LEFT JOIN users u ON o.user_id = u.id
+            ORDER BY o.created_at DESC
+        `);
+        // Для каждого заказа получаем товары
+        for (let order of orders) {
+            const [items] = await connection.execute(
+                'SELECT * FROM order_items WHERE order_id = ?', [order.id]
+            );
+            // Для каждого товара подгружаем инфу о книге или мерче
+            for (let item of items) {
+                if (item.product_type === 'book') {
+                    const [book] = await connection.execute('SELECT title, image FROM books WHERE id = ?', [item.product_id]);
+                    item.title = book[0]?.title || '';
+                    item.image = book[0]?.image || '';
+                } else {
+                    const [merch] = await connection.execute('SELECT title, image FROM merch WHERE id = ?', [item.product_id]);
+                    item.title = merch[0]?.title || '';
+                    item.image = merch[0]?.image || '';
+                }
+            }
+            order.items = items;
+        }
+        await connection.end();
+        res.json(orders);
+    } catch (e) {
+        console.error('Ошибка получения заказов для админки:', e);
+        res.status(500).json({ error: 'Ошибка получения заказов' });
+    }
+});
+
 const PORT = 3001;
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+app.listen(PORT, 'localhost', () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 }); 

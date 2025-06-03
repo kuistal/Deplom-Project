@@ -202,7 +202,7 @@ body {
     position: fixed;
     left: 0;
     bottom: 0;
-}
+    }
 
 /* --- Фирменный цвет текста для формы --- */
 .wrapper h1,
@@ -214,7 +214,7 @@ body {
 .wrapper .register-link,
 .wrapper .register-link p a {
     color: #4F3076 !important;
-}
+    }
 .input-box i {
     color: #4F3076 !important;
 }
