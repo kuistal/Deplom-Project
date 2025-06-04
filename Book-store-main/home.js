@@ -104,37 +104,44 @@ async function displayNewArrivals() {
         }
 
         newArrivals.forEach(book => {
-            const bookCard = document.createElement('div');
-            bookCard.className = 'collection-book';
-            
-            const imgSrc = book.image ? (book.image.startsWith('/') ? book.image : '/' + book.image) : '/bookpage/placeholder.jpg';
-            bookCard.innerHTML = `
-                <div class="collection-img">
-                    <img src="${imgSrc}" alt="${book.title}" loading="lazy" onerror="this.src='bookpage/placeholder.jpg';">
+            let imgSrc = book.image ? (book.image.startsWith('/') ? book.image : '/' + book.image) : '/bookpage/placeholder.jpg';
+            const card = document.createElement('div');
+            card.className = 'similar-card';
+            card.style = `width:320px; min-height:500px; border-radius:22px; box-shadow:0 8px 32px #0002; padding:28px 18px 28px 18px; background:#fff; text-align:center; cursor:pointer; border: none; transition:box-shadow 0.2s; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;`;
+            card.innerHTML = `
+                <div style='width:100%;height:280px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:18px;padding:0;'>
+                    <img src="${imgSrc}" alt="${book.title}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:18px;background:#fff;">
                 </div>
-                <div class="collection-content">
-                    <div class="collection-content-detail">
-                        <div>
-                            <h5>${book.title}</h5>
-                            <p>${book.publisher || ''}</p>
-                            <span class="book-genre">$${
-                                book.genres
-                                    ? (Array.isArray(book.genres)
-                                        ? book.genres.join(', ')
-                                        : book.genres.split(',').map(g => g.trim()).join(', '))
-                                    : ''
-                            }</span>
-                        </div>
-                        <div>
-                            <h6>₽ ${book.price}</h6>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="product/product.html" class="view-book-link" onclick="goToProductPage('${imgSrc}', '${book.title}', '${book.author}', ${book.price}, '', '', '${book.description || 'Описание отсутствует'}'); return false;">Купить</a>
-                    </div>
-                </div>
+                <div class="similar-title" style="font-weight:bold;margin:24px 0 14px;font-size:1.22em;min-height:54px;display:flex;align-items:center;justify-content:center;">${book.title}</div>
+                <div class="similar-price" style="color:#4F3076;margin-bottom:28px;font-size:1.18em;">${book.price} ₽</div>
+                <a href="#" class="btn" style="background:#8E3796;color:#fff;padding:14px 0;border-radius:10px;text-decoration:none;font-size:18px;width:100%;max-width:200px;align-self:center;">Подробнее</a>
             `;
-            container.appendChild(bookCard);
+            card.querySelector('.btn').onclick = (e) => {
+                e.preventDefault();
+                localStorage.setItem('productId', book.id);
+                localStorage.setItem('productType', 'book');
+                localStorage.setItem('productImage', imgSrc);
+                localStorage.setItem('productTitle', book.title);
+                localStorage.setItem('productAuthor', book.author || '');
+                localStorage.setItem('productPrice', book.price);
+                localStorage.setItem('productOldPrice', '');
+                localStorage.setItem('productDiscount', '');
+                localStorage.setItem('productDescription', book.description || 'Описание отсутствует');
+                window.location.href = 'product/product.html';
+            };
+            card.onclick = () => {
+                localStorage.setItem('productId', book.id);
+                localStorage.setItem('productType', 'book');
+                localStorage.setItem('productImage', imgSrc);
+                localStorage.setItem('productTitle', book.title);
+                localStorage.setItem('productAuthor', book.author || '');
+                localStorage.setItem('productPrice', book.price);
+                localStorage.setItem('productOldPrice', '');
+                localStorage.setItem('productDiscount', '');
+                localStorage.setItem('productDescription', book.description || 'Описание отсутствует');
+                window.location.href = 'product/product.html';
+            };
+            container.appendChild(card);
         });
 
         updateCarouselButtons(books.length);
@@ -172,17 +179,6 @@ document.getElementById('next-btn').addEventListener('click', async (e) => {
         displayNewArrivals();
     }
 });
-
-function goToProductPage(image, title, author, price, oldPrice, discount, description) {
-    localStorage.setItem('productImage', image);
-    localStorage.setItem('productTitle', title);
-    localStorage.setItem('productAuthor', author);
-    localStorage.setItem('productPrice', price);
-    localStorage.setItem('productOldPrice', oldPrice);
-    localStorage.setItem('productDiscount', discount);
-    localStorage.setItem('productDescription', description);
-    window.location.href = 'product/product.html';
-}
 
 // Инициализация: загрузка новинок при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {

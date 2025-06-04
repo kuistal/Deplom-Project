@@ -232,17 +232,18 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 32px 18px 32px;
+    padding: 28px 48px 28px 48px;
     box-sizing: border-box;
     position: relative;
     z-index: 100;
-    min-height: 70px;
+    min-height: 100px;
     transition: background 0.3s, color 0.3s;
+    font-size: 1.18rem;
 }
 nav .left-nav img {
-    height: 54px;
+    height: 72px;
     width: auto;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 2px 8px var(--primary)22;
 }
 nav .right-nav {
@@ -254,55 +255,31 @@ nav .right-nav a, nav .right-nav button {
     color: var(--nav-link);
     background: none;
     border: none;
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
     text-decoration: none;
-    margin: 0 6px;
-    padding: 8px 18px;
-    border-radius: 8px;
+    margin: 0 10px;
+    padding: 14px 28px;
+    border-radius: 12px;
     transition: color 0.3s, background 0.3s;
     cursor: pointer;
     outline: none;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
 }
 nav .right-nav a:hover, nav .right-nav button:hover {
     color: var(--nav-link-hover);
 }
-nav .profile-btn {
-    background: #593796;
-    color: #DAE034;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-left: 8px;
-    transition: background 0.2s, color 0.2s;
+nav .profile-btn, .cart-btn, .dark-mode-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 2rem;
+    margin-left: 12px;
 }
-nav .profile-btn:hover {
+nav .profile-btn:hover, .cart-btn:hover, .dark-mode-btn:hover {
     background: #DAE034;
     color: #4F3076;
-}
-nav .dark-mode-btn {
-    background: #DAE034;
-    color: #4F3076;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-left: 8px;
-    transition: background 0.2s, color 0.2s;
-}
-nav .dark-mode-btn:hover {
-    background: #8E3796;
-    color: #fff;
 }
 .ham {
     display: none;
@@ -561,7 +538,7 @@ section#new-arrival .new-collection .collection-book .collection-content a:hover
     gap: 15px;
 }
 .category {
-    background: #4F3076; /* Additional blocks */
+    background: #593796; /* Новый цвет для карточек вселенных */
     color: #DAE034; /* Text on dark background */
     padding: 20px;
     border-radius: 8px;
@@ -900,4 +877,81 @@ button, .btn, .buy-btn, .add-to-cart-btn, .checkout-btn, .review-submit-btn, .wi
 button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:hover, .review-submit-btn:hover, .wishlist-remove-btn:hover {
     background: var(--btn-bg-hover);
     color: var(--btn-text-hover);
+}
+
+.similar-card {
+    width: 320px;
+    min-height: 500px;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #0002;
+    padding: 28px 18px 28px 18px;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+.similar-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #fff;
+}
+.similar-title {
+    font-weight: bold;
+    margin: 24px 0 14px;
+    font-size: 1.22em;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.similar-price {
+    color: #4F3076;
+    margin-bottom: 28px;
+    font-size: 1.18em;
+}
+.similar-card .btn {
+    background: #8E3796;
+    color: #fff;
+    padding: 14px 0;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    width: 100%;
+    max-width: 200px;
+    align-self: center;
+    transition: background 0.2s, color 0.2s;
+}
+.similar-card .btn:hover {
+    background: #4F3076;
+    color: #DAE034;
+}
+
+.cart-btn {
+    background: #8E3796;
+    color: #DAE034;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.cart-btn:hover {
+    background: #DAE034;
+    color: #4F3076;
 }
