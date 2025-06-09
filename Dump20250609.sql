@@ -90,7 +90,7 @@ CREATE TABLE `order_items` (
   KEY `idx_order_items_order_id` (`order_id`),
   KEY `idx_order_items_product_id` (`product_id`),
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES (1,6,2,'book',500.00,1),(2,7,5,'book',450.00,1);
+INSERT INTO `order_items` VALUES (1,6,2,'book',500.00,1),(2,7,5,'book',450.00,1),(3,8,4,'book',600.00,1),(4,8,8,'book',400.00,1),(5,9,4,'book',600.00,1),(6,9,8,'book',400.00,1),(7,10,4,'book',600.00,1),(8,10,8,'book',400.00,1),(9,11,4,'book',600.00,1),(10,11,8,'book',400.00,1),(11,12,4,'book',600.00,1),(12,12,8,'book',400.00,1),(13,13,4,'book',600.00,1),(14,13,8,'book',400.00,1),(15,14,4,'book',600.00,1),(16,14,8,'book',400.00,1),(17,15,4,'book',600.00,1),(18,15,8,'book',400.00,1),(19,16,4,'book',600.00,1),(20,16,8,'book',400.00,1);
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,10 +120,13 @@ CREATE TABLE `orders` (
   `house` varchar(20) DEFAULT NULL,
   `apartment` varchar(20) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Принят',
+  `tracking_number` varchar(32) DEFAULT NULL,
+  `pickup_code` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +135,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (6,1,500.00,'2025-06-02 23:57:16','Тверь','Красино ','22','11','010003'),(7,1,450.00,'2025-06-03 00:18:18','KAZAHSTAN','Красино ','22','11','010003');
+INSERT INTO `orders` VALUES (6,1,500.00,'2025-06-02 23:57:16','Тверь','Красино ','22','11','010003','Принят',NULL,NULL),(7,1,450.00,'2025-06-03 00:18:18','KAZAHSTAN','Красино ','22','11','010003','Принят',NULL,NULL),(8,1,1000.00,'2025-06-07 12:37:13','KAZAHSTAN','Красино ','22','266','010003','Принят',NULL,NULL),(9,1,1000.00,'2025-06-07 12:38:54','KAZAHSTAN','Красино ','46','266','010003','Принят',NULL,NULL),(10,1,1000.00,'2025-06-07 12:39:02','KAZAHSTAN','Красино ','46','266','010003','Принят',NULL,NULL),(11,1,1000.00,'2025-06-07 13:00:29','KAZAHSTAN','Красино ','46','266','010003','Принят',NULL,NULL),(12,1,1000.00,'2025-06-07 13:03:18','KAZAHSTAN','Красино ','46','11','010003','Принят',NULL,NULL),(13,1,1000.00,'2025-06-07 13:08:53','KAZAHSTAN','Красино ','46','11','010003','Отправлен','50719328298','5084'),(14,1,1000.00,'2025-06-07 13:09:19','KAZAHSTAN','Красино ','22','11','010003','Отправлен','45677212224','3906'),(15,1,1000.00,'2025-06-07 13:13:03','KAZAHSTAN','Красино ','22','11','010003','Отправлен','22507054099','5085'),(16,1,1000.00,'2025-06-08 08:53:49','KAZAHSTAN','Красино ','46','266','010003','Отправлен','35680397184','5700');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +160,7 @@ CREATE TABLE `reviews` (
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `reviews_chk_1` CHECK ((`rating` between 1 and 5))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-04 14:02:46
+-- Dump completed on 2025-06-09 15:27:33
