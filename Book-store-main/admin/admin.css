@@ -252,4 +252,57 @@ body {
         flex-direction: column;
         gap: 18px;
     }
+}
+@media (max-width: 600px) {
+    .admin-nav {
+        width: 100vw;
+        min-height: unset;
+        position: static;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+        border-radius: 0 0 14px 14px;
+        box-shadow: none;
+    }
+    .admin-nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+    .admin-nav .nav-link {
+        padding: 12px 8px;
+        font-size: 1em;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+    }
+    .admin-content {
+        margin-left: 0;
+        padding: 10px 2px;
+    }
+    .admin-table {
+        font-size: 0.95em;
+        border-radius: 6px;
+        min-width: 320px;
+        width: 100vw;
+        overflow-x: auto;
+        display: block;
+    }
+    .admin-table th, .admin-table td {
+        padding: 8px 4px;
+        font-size: 0.98em;
+    }
+    .admin-order-item-row img {
+        width: 22px;
+        height: 32px;
+        border-radius: 3px;
+    }
+    .admin-order-track-block {
+        font-size: 0.95em !important;
+        padding: 5px 4px !important;
+        border-radius: 5px !important;
+    }
+    .admin-product-edit-btn, .admin-product-delete-btn, .admin-user-delete-btn, .admin-review-delete-btn {
+        font-size: 1em;
+        padding: 7px 8px;
+        border-radius: 6px;
+    }
 } 

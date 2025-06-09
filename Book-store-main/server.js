@@ -366,7 +366,72 @@ app.get('/api/products/:type/:id/similar', async (req, res) => {
     }
 });
 
-// Получить историю заказов пользователя
+// === Nodemailer transporter ===
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    host: 'smtp.mail.ru',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'artemyludskay@mail.ru', 
+        pass: 'oNIsSXI8ucnIR0aZO9yb'
+    }
+});
+
+// Оформление заказа
+app.post('/api/orders', async (req, res) => {
+    const { user_id, address, items } = req.body;
+    if (!user_id || !address || !items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: 'Некорректные данные заказа' });
+    }
+    const connection = await mysql.createConnection(dbConfig);
+    try {
+        // Считаем сумму заказа
+        const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        // Вставляем заказ с полем status
+        const [orderResult] = await connection.execute(
+            'INSERT INTO orders (user_id, total, city, street, house, apartment, postal_code, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())',
+            [user_id, total, address.city, address.street, address.house, address.apartment, address.postal_code, 'Принят']
+        );
+        const orderId = orderResult.insertId;
+        // Вставляем товары заказа
+        for (const item of items) {
+            const productId = Number(item.product_id) || Number(item.id);
+            const productType = item.product_type || item.type || 'book';
+            const price = Number(item.price) || 0;
+            const quantity = Number(item.quantity) || 1;
+            if (!productId || !productType || !price || !quantity) {
+                console.error('Invalid item for order_items:', item);
+                continue;
+            }
+            await connection.execute(
+                'INSERT INTO order_items (order_id, product_id, product_type, price, quantity) VALUES (?, ?, ?, ?, ?)',
+                [orderId, productId, productType, price, quantity]
+            );
+        }
+        // Получаем email пользователя
+        const [userRows] = await connection.execute('SELECT email, name FROM users WHERE id = ?', [user_id]);
+        const userEmail = userRows[0]?.email;
+        const userName = userRows[0]?.name || '';
+        // Отправляем email, если есть email
+        if (userEmail) {
+            await transporter.sendMail({
+                from: 'yourshop@gmail.com',
+                to: userEmail,
+                subject: 'Ваш заказ принят',
+                text: `Здравствуйте${userName ? ', ' + userName : ''}!\n\nВаш заказ №${orderId} успешно оформлен и принят в обработку.\n\nСпасибо за покупку в нашем магазине!`
+            });
+        }
+        await connection.end();
+        res.status(201).json({ success: true, orderId });
+    } catch (e) {
+        console.error('Order error:', e, { user_id, address, items });
+        await connection.end();
+        res.status(500).json({ error: 'Ошибка оформления заказа' });
+    }
+});
+
+// Получить историю заказов пользователя (добавляю поле status)
 app.get('/api/orders/:userId', async (req, res) => {
     const userId = req.params.userId;
     const connection = await mysql.createConnection(dbConfig);
@@ -379,7 +444,6 @@ app.get('/api/orders/:userId', async (req, res) => {
         const [items] = await connection.execute(
             'SELECT * FROM order_items WHERE order_id = ?', [order.id]
         );
-        // Для каждого товара подгружаем инфу о книге или мерче
         for (let item of items) {
             if (item.product_type === 'book') {
                 const [book] = await connection.execute('SELECT title, image FROM books WHERE id = ?', [item.product_id]);
@@ -397,50 +461,7 @@ app.get('/api/orders/:userId', async (req, res) => {
     res.json(orders);
 });
 
-// Оформление заказа
-app.post('/api/orders', async (req, res) => {
-    const { user_id, address, items } = req.body;
-    if (!user_id || !address || !items || !Array.isArray(items) || items.length === 0) {
-        return res.status(400).json({ error: 'Некорректные данные заказа' });
-    }
-    const connection = await mysql.createConnection(dbConfig);
-    try {
-        // Считаем сумму заказа
-        const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        // Вставляем заказ
-        const [orderResult] = await connection.execute(
-            'INSERT INTO orders (user_id, total, city, street, house, apartment, postal_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
-            [user_id, total, address.city, address.street, address.house, address.apartment, address.postal_code]
-        );
-        const orderId = orderResult.insertId;
-        // Логируем приходящие товары
-        console.log('Order items:', items);
-        // Вставляем товары заказа
-        for (const item of items) {
-            const productId = Number(item.product_id) || Number(item.id);
-            const productType = item.product_type || item.type || 'book';
-            const price = Number(item.price) || 0;
-            const quantity = Number(item.quantity) || 1;
-            if (!productId || !productType || !price || !quantity) {
-                console.error('Invalid item for order_items:', item);
-                continue;
-            }
-            console.log('Inserting item:', { productId, productType, price, quantity });
-            await connection.execute(
-                'INSERT INTO order_items (order_id, product_id, product_type, price, quantity) VALUES (?, ?, ?, ?, ?)',
-                [orderId, productId, productType, price, quantity]
-            );
-        }
-        await connection.end();
-        res.status(201).json({ success: true, orderId });
-    } catch (e) {
-        console.error('Order error:', e, { user_id, address, items });
-        await connection.end();
-        res.status(500).json({ error: 'Ошибка оформления заказа' });
-    }
-});
-
-// === Получить все заказы с деталями для админки ===
+// === Получить все заказы с деталями для админки === (поле status уже будет в orders)
 app.get('/api/admin/orders', async (req, res) => {
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -475,6 +496,36 @@ app.get('/api/admin/orders', async (req, res) => {
     } catch (e) {
         console.error('Ошибка получения заказов для админки:', e);
         res.status(500).json({ error: 'Ошибка получения заказов' });
+    }
+});
+
+// PATCH: обновление статуса заказа (админка)
+app.patch('/api/admin/orders/:id/status', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    if (!status) return res.status(400).json({ error: 'Не передан статус' });
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        // Получаем текущий заказ
+        const [orders] = await connection.execute('SELECT * FROM orders WHERE id = ?', [id]);
+        if (!orders.length) {
+            await connection.end();
+            return res.status(404).json({ error: 'Заказ не найден' });
+        }
+        let tracking_number = orders[0].tracking_number;
+        let pickup_code = orders[0].pickup_code;
+        // Если статус "Отправлен" и трек/код ещё не заданы — генерируем
+        if (status === 'Отправлен' && (!tracking_number || !pickup_code)) {
+            tracking_number = String(Math.floor(10000000000 + Math.random() * 90000000000));
+            pickup_code = String(Math.floor(1000 + Math.random() * 9000));
+            await connection.execute('UPDATE orders SET status = ?, tracking_number = ?, pickup_code = ? WHERE id = ?', [status, tracking_number, pickup_code, id]);
+        } else {
+            await connection.execute('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
+        }
+        await connection.end();
+        res.json({ success: true, tracking_number, pickup_code });
+    } catch (e) {
+        res.status(500).json({ error: 'Ошибка обновления статуса заказа' });
     }
 });
 

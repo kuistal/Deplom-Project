@@ -300,6 +300,117 @@ nav .profile-btn:hover, .cart-btn:hover, .dark-mode-btn:hover {
         height: 40px;
     }
 }
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px 2vw 8px 2vw;
+        min-height: 60px;
+        font-size: 1em;
+    }
+    nav .left-nav img {
+        height: 36px;
+        border-radius: 8px;
+        margin-bottom: 6px;
+    }
+    nav .right-nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        width: 100%;
+        margin-top: 6px;
+    }
+    nav .right-nav a, nav .right-nav button {
+        font-size: 1.08em;
+        padding: 10px 0;
+        margin: 0 0 2px 0;
+        border-radius: 8px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    nav .profile-btn, .cart-btn, .dark-mode-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3em;
+        margin-left: 0;
+    }
+    .ham {
+        display: block;
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        font-size: 2em;
+        background: none;
+        border: none;
+        color: var(--nav-link);
+        z-index: 200;
+    }
+    .burger-menu {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        background: none;
+        border: none;
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        z-index: 1001;
+        cursor: pointer;
+        gap: 4px;
+    }
+    .burger-menu span {
+        display: block;
+        width: 28px;
+        height: 4px;
+        background: #DAE034;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+    .burger-menu.open span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    .burger-menu.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .burger-menu.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    .right-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 50vw;
+        max-width: 200px;
+        height: 100vh;
+        background: #4F3076;
+        color: #DAE034;
+        box-shadow: 2px 0 16px #0002;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 60px 18px 18px 18px;
+        z-index: 1000;
+        overflow-y: auto;
+        border-radius: 0 18px 18px 0;
+        transition: left 0.3s, opacity 0.2s;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .right-nav.open {
+        display: flex !important;
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .header-bg, .header-white-bar {
+        display: none !important;
+    }
+    body.menu-open {
+        overflow: hidden;
+    }
+}
 
 /* Header */
 header {
@@ -954,4 +1065,141 @@ button:hover, .btn:hover, .buy-btn:hover, .add-to-cart-btn:hover, .checkout-btn:
 .cart-btn:hover {
     background: #DAE034;
     color: #4F3076;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 2.5rem 0.2rem;
+        width: 98vw;
+        margin: 0.5rem auto;
+        gap: 2.5rem;
+    }
+    header div h1 {
+        font-size: 1.5rem;
+    }
+    header div p {
+        font-size: 1.1rem;
+    }
+    header a, header a.get-started, header a.learn-more {
+        font-size: 1em;
+        padding: 0.5rem 0.7rem;
+        border-radius: 1.2rem;
+        margin: 0.5rem 0;
+    }
+    section {
+        padding: 18px 2vw;
+    }
+    section#about .about-container {
+        width: 100vw;
+        padding: 18px 0;
+        gap: 0.5rem;
+    }
+    section#about .about-container .about-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    section#about .about-container .about-content h2,
+    section#about .about-container .about-content p {
+        width: 100%;
+        padding: 0.7rem 0.5rem;
+        text-align: center;
+        font-size: 1.1em;
+    }
+    section#about .about-container .about-content h2 {
+        font-size: 1.3rem;
+    }
+    section#about .about-container .about-overview {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 98vw;
+        padding: 18px 0;
+        border-radius: 1rem;
+    }
+    section#about .about-container .about-overview .about-overview-content {
+        width: 98vw;
+        padding: 0.7rem;
+        margin: 0.5rem 0;
+        border-radius: 1rem;
+    }
+    section#about .about-container .about-overview img {
+        width: 4.5rem;
+    }
+    section#new-arrival {
+        width: 100vw;
+        padding: 18px 0;
+        gap: 0.5rem;
+    }
+    section#new-arrival .new-arrival-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 12px 0;
+    }
+    section#new-arrival .new-collection {
+        flex-direction: column;
+        gap: 0.7rem;
+        width: 100vw;
+        align-items: center;
+    }
+    section#new-arrival .new-collection .collection-book {
+        width: 95vw;
+        padding: 0.7rem;
+        font-size: 1em;
+    }
+    section#new-arrival .new-collection .collection-book .collection-img img {
+        width: 5.5rem;
+    }
+    .collection {
+        width: 100vw;
+        padding: 18px 2vw;
+        margin: 0.5rem auto;
+    }
+    .collection .collection-title {
+        font-size: 1.2rem;
+        padding-bottom: 4px;
+    }
+    .categories {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-top: 1rem;
+    }
+    .category {
+        font-size: 1em;
+        padding: 12px;
+    }
+    .contact-section {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 2vw;
+        margin: 10px auto;
+        max-width: 100vw;
+        border-radius: 8px;
+    }
+    .contact-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    .contact-info ul li {
+        margin-bottom: 18px;
+        font-size: 1em;
+    }
+    .map-container {
+        min-height: 180px;
+        border-radius: 8px;
+    }
+    .map-container iframe {
+        min-height: 180px;
+        border-radius: 8px;
+    }
+    footer {
+        padding: 10px;
+        font-size: 1em;
+    }
+    .social {
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+    .text_foot ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

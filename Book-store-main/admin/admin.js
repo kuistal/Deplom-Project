@@ -408,11 +408,19 @@ async function loadAdminOrders() {
             ordersSection.innerHTML = '<p>Нет заказов.</p>';
             return;
         }
-        let html = `<table class="admin-table"><thead><tr><th>ID</th><th>Пользователь</th><th>Email</th><th>Дата</th><th>Адрес</th><th>Сумма</th><th>Товары</th></tr></thead><tbody>`;
+        let html = `<table class="admin-table"><thead><tr><th>ID</th><th>Пользователь</th><th>Email</th><th>Дата</th><th>Адрес</th><th>Сумма</th><th>Статус</th><th>Товары</th></tr></thead><tbody>`;
         for (const o of orders) {
             const address = `${o.city || ''}, ${o.street || ''}, д.${o.house || ''}${o.apartment ? ', кв.' + o.apartment : ''}, ${o.postal_code || ''}`;
-            html += `<tr><td>${o.id}</td><td>${o.name || o.username || 'user#'+o.user_id}</td><td>${o.email || ''}</td><td>${new Date(o.created_at).toLocaleString()}</td><td>${address}</td><td>₽${o.total}</td><td>`;
-            html += `<div class='admin-order-items-list'>`;
+            html += `<tr><td>${o.id}</td><td>${o.name || o.username || 'user#'+o.user_id}</td><td>${o.email || ''}</td><td>${new Date(o.created_at).toLocaleString()}</td><td>${address}</td><td>₽${o.total}</td>`;
+            html += `<td><div style='display:flex;flex-direction:column;gap:4px;'>
+                <select class='admin-order-status-select' data-id='${o.id}'>
+                    <option value="Принят"${o.status==="Принят"?" selected":""}>Принят</option>
+                    <option value="Отправлен"${o.status==="Отправлен"?" selected":""}>Отправлен</option>
+                    <option value="Доставлен"${o.status==="Доставлен"?" selected":""}>Доставлен</option>
+                </select>
+                ${(o.tracking_number || o.pickup_code) ? `<div class='admin-order-track-block' style='margin-top:4px;font-size:0.98em;background:#f7f3ff;padding:6px 10px;border-radius:7px;color:#4F3076;'>${o.tracking_number ? `<div><b>Трек-номер:</b> <span style='font-family:monospace;'>${o.tracking_number}</span></div>` : ''}${o.pickup_code ? `<div><b>Код для получения:</b> <span style='font-family:monospace;'>${o.pickup_code}</span></div>` : ''}</div>` : ''}
+            </div></td>`;
+            html += `<td><div class='admin-order-items-list'>`;
             html += o.items.map(item => `
                 <div class='admin-order-item-row'>
                     <img src='${item.image}' alt='' >
@@ -421,11 +429,27 @@ async function loadAdminOrders() {
                     <span>₽${item.price} × ${item.quantity}</span>
                 </div>
             `).join('');
-            html += `</div>`;
-            html += `</td></tr>`;
+            html += `</div></td></tr>`;
         }
         html += '</tbody></table>';
         ordersSection.innerHTML = html;
+        // Обработчик смены статуса
+        document.querySelectorAll('.admin-order-status-select').forEach(sel => {
+            sel.addEventListener('change', async function() {
+                const orderId = this.dataset.id;
+                const newStatus = this.value;
+                const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                if (res.ok) {
+                    loadAdminOrders();
+                } else {
+                    alert('Ошибка обновления статуса заказа');
+                }
+            });
+        });
     } catch (e) {
         ordersSection.innerHTML = '<div class="admin-error">Ошибка загрузки заказов</div>';
     }

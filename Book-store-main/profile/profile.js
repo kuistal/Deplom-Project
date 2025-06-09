@@ -82,18 +82,25 @@ async function loadOrders() {
         return;
     }
     ordersList.innerHTML = orders.map(order => `
-        <div class="order-block">
-            <div><b>Заказ #${order.id}</b> от ${new Date(order.created_at).toLocaleString()} — <b>₽${order.total}</b></div>
-            <div class="order-items">
-                ${order.items.map(item => `
-                    <div class="order-item">
-                        <img src="${item.image}" alt="${item.title}" style="width:40px;height:60px;object-fit:cover;">
-                        <span>${item.title}</span>
-                        <span>${item.product_type === 'book' ? 'Книга' : 'Мерч'}</span>
-                        <span>₽${item.price} × ${item.quantity}</span>
-                    </div>
-                `).join('')}
-            </div>
+        <div class="order-card">
+          <div class="order-header">
+            <span class="order-number">Заказ #${order.id}</span>
+            <span class="order-date">${new Date(order.created_at).toLocaleString()}</span>
+            <span class="order-status">Статус: <b>${order.status || '—'}</b></span>
+            <span class="order-total">Сумма: <b>₽${order.total}</b></span>
+          </div>
+          ${(order.tracking_number || order.pickup_code) ? `<div class='order-track-block' style='margin: 0 0 16px 0; background: #f7f3ff; border-radius: 8px; padding: 10px 18px; color: #4F3076; font-size: 1.08em;'><b>Трек-номер:</b> <span style='font-family:monospace;'>${order.tracking_number || '-'}</span><br><b>Код для получения:</b> <span style='font-family:monospace;'>${order.pickup_code || '-'}</span></div>` : ''}
+          <div class="order-items">
+            ${order.items.map(item => `
+              <div class="order-item">
+                <img src="${item.image}" alt="${item.title}" class="order-item-img" />
+                <div>
+                  <div class="order-item-title">${item.title}</div>
+                  <div class="order-item-qty">${item.product_type === 'book' ? 'Книга' : 'Мерч'} — ₽${item.price} × ${item.quantity}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
     `).join('');
 }
