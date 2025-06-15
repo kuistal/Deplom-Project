@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function updateFavBtn() {
         const token = localStorage.getItem('token');
         if (!token || !bookId) return;
-        const res = await fetch('http://localhost:3001/api/favorites', {
+        const res = await fetch('http://217.198.13.177/api/favorites', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
         if (!res.ok) return;
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Войдите в аккаунт!');
             return;
         }
-        const res = await fetch('http://localhost:3001/api/favorites', {
+        const res = await fetch('http://217.198.13.177/api/favorites', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ async function loadProductReviews() {
     reviewsList.innerHTML = '';
     ratingDisplay.innerHTML = '';
     try {
-        const res = await fetch(`http://localhost:3001/api/reviews/${productType}/${productId}`);
+        const res = await fetch(`http://217.198.13.177/api/reviews/${productType}/${productId}`);
         const data = await res.json();
         console.log('data:', data);
         if (!data.reviews || data.reviews.length === 0) {
@@ -221,7 +221,7 @@ async function submitProductReview() {
         return;
     }
     try {
-        const res = await fetch('http://localhost:3001/api/reviews', {
+        const res = await fetch('http://217.198.13.177/api/reviews', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

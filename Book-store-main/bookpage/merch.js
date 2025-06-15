@@ -1,6 +1,6 @@
 async function fetchMerch() {
     try {
-        const response = await fetch('http://localhost:3001/api/merch');
+        const response = await fetch('http://217.198.13.177/api/merch');
         if (!response.ok) throw new Error('Не удалось загрузить мерч');
         return await response.json();
     } catch (error) {
@@ -13,7 +13,7 @@ let userFavorites = [];
 async function getUserFavorites() {
     const token = localStorage.getItem('token');
     if (!token) return [];
-    const res = await fetch('http://localhost:3001/api/favorites', {
+    const res = await fetch('http://217.198.13.177/api/favorites', {
         headers: { 'Authorization': 'Bearer ' + token }
     });
     if (!res.ok) return [];
@@ -26,7 +26,7 @@ async function toggleFavorite(merchId, btn) {
         alert('Войдите в аккаунт!');
         return;
     }
-    const res = await fetch('http://localhost:3001/api/favorites', {
+    const res = await fetch('http://217.198.13.177/api/favorites', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

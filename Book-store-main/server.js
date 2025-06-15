@@ -366,18 +366,6 @@ app.get('/api/products/:type/:id/similar', async (req, res) => {
     }
 });
 
-// === Nodemailer transporter ===
-const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-    host: 'smtp.mail.ru',
-    port: 465,
-    secure: true,
-    auth: {
-        user: 'artemyludskay@mail.ru', 
-        pass: 'oNIsSXI8ucnIR0aZO9yb'
-    }
-});
-
 // Оформление заказа
 app.post('/api/orders', async (req, res) => {
     const { user_id, address, items } = req.body;
@@ -408,19 +396,6 @@ app.post('/api/orders', async (req, res) => {
                 'INSERT INTO order_items (order_id, product_id, product_type, price, quantity) VALUES (?, ?, ?, ?, ?)',
                 [orderId, productId, productType, price, quantity]
             );
-        }
-        // Получаем email пользователя
-        const [userRows] = await connection.execute('SELECT email, name FROM users WHERE id = ?', [user_id]);
-        const userEmail = userRows[0]?.email;
-        const userName = userRows[0]?.name || '';
-        // Отправляем email, если есть email
-        if (userEmail) {
-            await transporter.sendMail({
-                from: 'yourshop@gmail.com',
-                to: userEmail,
-                subject: 'Ваш заказ принят',
-                text: `Здравствуйте${userName ? ', ' + userName : ''}!\n\nВаш заказ №${orderId} успешно оформлен и принят в обработку.\n\nСпасибо за покупку в нашем магазине!`
-            });
         }
         await connection.end();
         res.status(201).json({ success: true, orderId });
@@ -502,7 +477,7 @@ app.get('/api/admin/orders', async (req, res) => {
 // PATCH: обновление статуса заказа (админка)
 app.patch('/api/admin/orders/:id/status', async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, tracking_number, pickup_code } = req.body;
     if (!status) return res.status(400).json({ error: 'Не передан статус' });
     try {
         const connection = await mysql.createConnection(dbConfig);
@@ -512,13 +487,9 @@ app.patch('/api/admin/orders/:id/status', async (req, res) => {
             await connection.end();
             return res.status(404).json({ error: 'Заказ не найден' });
         }
-        let tracking_number = orders[0].tracking_number;
-        let pickup_code = orders[0].pickup_code;
-        // Если статус "Отправлен" и трек/код ещё не заданы — генерируем
-        if (status === 'Отправлен' && (!tracking_number || !pickup_code)) {
-            tracking_number = String(Math.floor(10000000000 + Math.random() * 90000000000));
-            pickup_code = String(Math.floor(1000 + Math.random() * 9000));
-            await connection.execute('UPDATE orders SET status = ?, tracking_number = ?, pickup_code = ? WHERE id = ?', [status, tracking_number, pickup_code, id]);
+        // Если статус "Отправлен" — обновляем трек-номер и код, если они переданы
+        if (status === 'Отправлен') {
+            await connection.execute('UPDATE orders SET status = ?, tracking_number = ?, pickup_code = ? WHERE id = ?', [status, tracking_number || null, pickup_code || null, id]);
         } else {
             await connection.execute('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
         }

@@ -79,7 +79,7 @@ const booksPerPage = 3;
 // Функция для загрузки книг
 async function fetchBooks() {
     try {
-        const response = await fetch('http://localhost:3001/api/books');
+        const response = await fetch('http://217.198.13.177/api/books');
         if (!response.ok) throw new Error('Не удалось загрузить книги');
         const books = await response.json();
         return books;

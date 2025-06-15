@@ -418,6 +418,11 @@ async function loadAdminOrders() {
                     <option value="Отправлен"${o.status==="Отправлен"?" selected":""}>Отправлен</option>
                     <option value="Доставлен"${o.status==="Доставлен"?" selected":""}>Доставлен</option>
                 </select>
+                <div class='admin-order-track-inputs' style='${o.status==="Отправлен"?"":"display:none;"}margin-top:6px;'>
+                    <input type='text' class='admin-track-number-input' placeholder='Трек-номер' value='${o.tracking_number||""}' style='margin-bottom:4px;padding:4px 8px;border-radius:5px;border:1px solid #8E3796;width:100%;'>
+                    <input type='text' class='admin-pickup-code-input' placeholder='Код для получения' value='${o.pickup_code||""}' style='padding:4px 8px;border-radius:5px;border:1px solid #8E3796;width:100%;'>
+                    <button class='admin-save-track-btn' data-id='${o.id}' style='margin-top:4px;padding:4px 10px;border-radius:5px;background:#8E3796;color:#fff;border:none;'>Сохранить</button>
+                </div>
                 ${(o.tracking_number || o.pickup_code) ? `<div class='admin-order-track-block' style='margin-top:4px;font-size:0.98em;background:#f7f3ff;padding:6px 10px;border-radius:7px;color:#4F3076;'>${o.tracking_number ? `<div><b>Трек-номер:</b> <span style='font-family:monospace;'>${o.tracking_number}</span></div>` : ''}${o.pickup_code ? `<div><b>Код для получения:</b> <span style='font-family:monospace;'>${o.pickup_code}</span></div>` : ''}</div>` : ''}
             </div></td>`;
             html += `<td><div class='admin-order-items-list'>`;
@@ -435,19 +440,44 @@ async function loadAdminOrders() {
         ordersSection.innerHTML = html;
         // Обработчик смены статуса
         document.querySelectorAll('.admin-order-status-select').forEach(sel => {
-            sel.addEventListener('change', async function() {
+            sel.addEventListener('change', function() {
                 const orderId = this.dataset.id;
                 const newStatus = this.value;
-                const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+                const row = this.closest('td');
+                const trackInputs = row.querySelector('.admin-order-track-inputs');
+                if (newStatus === 'Отправлен') {
+                    trackInputs.style.display = '';
+                } else {
+                    trackInputs.style.display = 'none';
+                    // Можно сразу отправить PATCH без треков
+                    fetch(`/api/admin/orders/${orderId}/status`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: newStatus })
+                    }).then(res => {
+                        if (res.ok) loadAdminOrders();
+                        else alert('Ошибка обновления статуса заказа');
+                    });
+                }
+            });
+        });
+        // Обработчик сохранения трек-номера и кода
+        document.querySelectorAll('.admin-save-track-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                const row = this.closest('td');
+                const statusSel = row.querySelector('.admin-order-status-select');
+                const newStatus = statusSel.value;
+                const trackNumber = row.querySelector('.admin-track-number-input').value;
+                const pickupCode = row.querySelector('.admin-pickup-code-input').value;
+                fetch(`/api/admin/orders/${orderId}/status`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: newStatus })
+                    body: JSON.stringify({ status: newStatus, tracking_number: trackNumber, pickup_code: pickupCode })
+                }).then(res => {
+                    if (res.ok) loadAdminOrders();
+                    else alert('Ошибка обновления трек-номера/кода');
                 });
-                if (res.ok) {
-                    loadAdminOrders();
-                } else {
-                    alert('Ошибка обновления статуса заказа');
-                }
             });
         });
     } catch (e) {

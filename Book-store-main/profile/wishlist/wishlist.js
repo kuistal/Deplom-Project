@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         window.location.href = '../../loginform/loginform/index.html';
         return;
     }
-    const favRes = await fetch('http://localhost:3001/api/favorites', {
+    const favRes = await fetch('http://217.198.13.177/api/favorites', {
         headers: { 'Authorization': 'Bearer ' + token }
     });
     const favoriteIds = await favRes.json();
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('wishlist-books').innerHTML = '<p>У вас нет избранных книг.</p>';
         return;
     }
-    const booksRes = await fetch('http://localhost:3001/api/books');
+    const booksRes = await fetch('http://217.198.13.177/api/books');
     const books = await booksRes.json();
     const favBooks = books.filter(b => favoriteIds.includes(b.id.toString()));
     document.getElementById('wishlist-books').innerHTML =
